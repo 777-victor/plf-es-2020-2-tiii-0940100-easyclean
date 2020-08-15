@@ -7,6 +7,8 @@ Plataforma simples e direta para encontrar um(a) profissional de limpeza ou se r
 * Vinícius Marini Costa e Oliveira
 * Arthur Bicalho Lana Corrêa Fernandes
 * Victor Boaventura Goes Campos
+* -----
+
 
 
 ## Professor
