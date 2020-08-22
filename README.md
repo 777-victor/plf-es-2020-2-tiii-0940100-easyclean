@@ -1,4 +1,4 @@
-##EasyClean (Nome temporário)
+### EasyClean (Nome temporário)
 
 Plataforma simples e direta para encontrar um(a) profissional de limpeza ou se registrar como diarista.
 https://canvanizer.com/canvas/rAzomzn8FBg2P
