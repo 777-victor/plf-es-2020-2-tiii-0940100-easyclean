@@ -16,7 +16,8 @@ https://canvanizer.com/canvas/rAzomzn8FBg2P
 
 ## Professor
 
-* Nome completo do professor
+* Joyce 
+* Hugo
 
 ## Instruções de utilização
 
