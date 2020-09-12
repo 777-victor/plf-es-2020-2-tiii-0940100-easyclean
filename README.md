@@ -1,4 +1,4 @@
-### EasyClean (Nome temporário)
+### EasyClean
 
 Plataforma simples e direta para encontrar um(a) profissional de limpeza ou se registrar como diarista.
 https://canvanizer.com/canvas/rAzomzn8FBg2P
@@ -10,7 +10,6 @@ https://canvanizer.com/canvas/rAzomzn8FBg2P
 * Vinícius Marini Costa e Oliveira
 * Arthur Bicalho Lana Corrêa Fernandes
 * Victor Boaventura Goes Campos
-* -----
 
 
 
