@@ -1,4 +1,6 @@
-
+img.esfregao-home{
+    max-width: 10%;
+}
 #page-landing{
     background-color:var(--color-primary);
 }
@@ -18,8 +20,9 @@
     line-height: 4.6rem;
     margin-top: 0.8rem;
 }
-.hero-image{
-    width: 100%;
+img.hero-image{
+    width:50rem;
+    height:50rem;
 }
 .buttons-container{
     display: flex;
