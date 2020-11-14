@@ -1,2 +1,2 @@
-# NextWeek-2
- Projeto NLW2
+# EasyClean
+ Projeto EasyClean
