@@ -1,0 +1,64 @@
+const DataBase = require('sqlite-async')
+DataBase.open(__dirname + '/database.sqlite').then(execute)
+
+function execute(db) {
+    //criando as tabelas do banco de dados
+    db.exec(`
+ 
+    CREATE TABLE IF NOT EXISTS DIARISTA 
+    (
+      ID INTEGER PRIMARY KEY AUTOINCREMENT,
+      CPF TEXT,
+      NOME TEXT, 
+      EMAIL TEXT,
+      IMG_DIARISTA TEXT,
+      TELEFONE DECIMAL TEXT
+
+    );
+    
+
+    CREATE TABLE IF NOT EXISTS DISPONIBILIDADE
+    (
+      ID INTEGER PRIMARY KEY AUTOINCREMENT,
+      VALOR TEXT,
+      DESCRICAO TEXT,
+      DIARISTA_ID INTEGER
+    );
+
+    CREATE TABLE IF NOT EXISTS HORARIOS(
+
+        ID INTEGER PRIMARY KEY AUTOINCREMENT,
+        DIA_SEMANA INTEGER,
+        TEMPO_DE INTEGER,
+        TEMPO_ATE INTEGER,
+        DISPONIBILIDADE_ID INTEGER
+
+    );
+
+    CREATE TABLE IF NOT EXISTS CLIENTE 
+    
+    (
+      ID INTEGER PRIMARY KEY AUTOINCREMENT,
+      CPF TEXT,
+      NOME TEXT,
+      EMAIL TEXT,
+      IMG_DIARISTA TEXT,
+      TELEFONE TEXT
+
+    );
+    
+    
+    CREATE TABLE IF NOT EXISTS CONTRATO(
+
+     ID INTEGER PRIMARY KEY AUTOINCREMENT,
+     NOTA_CLIENTE INTEGER,
+     NOTA_DIARISTA INTEGER,
+     VALOR INTEGER, 
+     CLIENTE_ID INTEGER,
+     DIARISTA_ID INTEGER,
+     DISPONIBILIDADE_ID INTEGER
+    
+    );
+    
+    `)
+}
