@@ -12,7 +12,8 @@ function execute(db) {
       NOME TEXT, 
       EMAIL TEXT,
       IMG_DIARISTA TEXT,
-      TELEFONE DECIMAL TEXT
+      TELEFONE TEXT,
+      LOGRADOURO_ID INTEGER
 
     );
     
@@ -43,7 +44,22 @@ function execute(db) {
       NOME TEXT,
       EMAIL TEXT,
       IMG_DIARISTA TEXT,
-      TELEFONE TEXT
+      TELEFONE TEXT,
+      LOGRADOURO_ID INTEGER
+
+    );
+
+    CREATE TABLE IF NOT EXISTS LOGRADOURO 
+    (
+        ID INTEGER PRIMARY KEY AUTOINCREMENT,
+        CEP TEXT,
+        RUA TEXT,
+        BAIRRO TEXT,
+        CIDADE TEXT,
+        ESTADO TEXT, 
+        NUMERO TEXT,
+        CLIENTE_ID INTEGER,
+        DIARISTA_ID INTEGER
 
     );
     
