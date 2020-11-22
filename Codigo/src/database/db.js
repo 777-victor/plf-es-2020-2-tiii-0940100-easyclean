@@ -1,9 +1,9 @@
-const DataBase = require('sqlite-async')
-DataBase.open(__dirname + '/database.sqlite').then(execute)
+const Database = require('sqlite-async')
+    //DataBase.open(__dirname + '/database.sqlite').then(execute)
 
 function execute(db) {
     //criando as tabelas do banco de dados
-    db.exec(`
+    return db.exec(`
  
     CREATE TABLE IF NOT EXISTS DIARISTA 
     (
@@ -43,7 +43,7 @@ function execute(db) {
       CPF TEXT,
       NOME TEXT,
       EMAIL TEXT,
-      IMG_DIARISTA TEXT,
+      IMG_CLIENTE TEXT,
       TELEFONE TEXT,
       LOGRADOURO_ID INTEGER
 
@@ -56,10 +56,7 @@ function execute(db) {
         RUA TEXT,
         BAIRRO TEXT,
         CIDADE TEXT,
-        ESTADO TEXT, 
-        NUMERO TEXT,
-        CLIENTE_ID INTEGER,
-        DIARISTA_ID INTEGER
+        ESTADO TEXT
 
     );
     
@@ -78,3 +75,5 @@ function execute(db) {
     
     `)
 }
+
+module.exports = Database.open(__dirname + '/database.sqlite').then(execute)
