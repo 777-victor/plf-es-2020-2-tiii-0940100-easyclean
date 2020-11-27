@@ -76,12 +76,36 @@ async function saveCadastro(req, res) {
         estado: req.body.uf
     }
 
+    const disponibilidadeValor = {
+        valor: req.body.valor,
+        bio: req.body.descricao
+    }
+
+
+
+    const classScheduleValues = req.body.weekday.map((weekday, index) => {
+        return {
+            weekday,
+            time_from: convertHoursToMinutes(req.body.time_from[index]),
+            time_to: convertHoursToMinutes(req.body.time_to[index])
+        }
+    })
+    console.log("TESTE");
+    //console.log(weekday);
+    console.log(convertHoursToMinutes(req.body.time_from[0]));
+    console.log(convertHoursToMinutes(req.body.time_to[0]));
+
     if (cadastroValor.youAre == 1) {
 
         try {
+
             const db = await Database
-            await cadastraDiarista(db, { cadastroValor, logadrouroValor })
-                //return res.redirect("/feedCliente" + queryString)
+            await cadastraDiarista(db, { cadastroValor, logadrouroValor, disponibilidadeValor, classScheduleValues })
+
+            let queryString = "?weekday=" + req.body.weekday[0]
+            queryString = "?time=" + req.body.time_from[0]
+
+            //return res.redirect("/feedCliente" + queryString)
             return res.redirect("/feedCliente")
         } catch (error) {
             console.log(error)
