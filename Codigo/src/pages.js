@@ -1,3 +1,4 @@
+const db = require('./database/db')
 const Database = require('./database/db')
 
 const { weekdays, convertHoursToMinutes } = require('./utils/format')
@@ -10,36 +11,39 @@ function pageLanding(req, res) {
 async function pageStudy(req, res) {
     const filters = req.query
 
+
     if (!filters.weekday || !filters.time) {
         //return res.render("feedCliente.html", { filters, weekdays })
-        return res.render('feedCliente.html')
-
+        return res.render('feedCliente.html', { filters, weekdays })
     }
 
     //CONVERTER HORAS EM MINUTOS
     const timeToMinutes = convertHoursToMinutes(filters.time)
 
+    // console.log(filters.weekday)
+    console.log(timeToMinutes);
+
     const query = `
-    SELECT classes.*, proffys.*
-    FROM proffys
-    JOIN classes ON (classes.proffy_id = proffys.id)
+    SELECT DISPONIBILIDADE.*, DIARISTA.*
+    FROM DIARISTA
+    JOIN DISPONIBILIDADE ON (DISPONIBILIDADE.DIARISTA_ID = DIARISTA.ID)
     WHERE EXISTS(
-      SELECT class_schedule.*
-      FROM class_schedule
-      WHERE class_schedule.class_id = classes.id
-      AND class_schedule.weekday = ${filters.weekday}
-      AND class_schedule.time_from <= ${timeToMinutes}
-      AND class_schedule.time_to > ${timeToMinutes}
+      SELECT HORARIOS.*
+      FROM HORARIOS
+      WHERE HORARIOS.DISPONIBILIDADE_ID = DISPONIBILIDADE.ID
+      AND HORARIOS.DIA_SEMANA = ${filters.weekday}
+      AND HORARIOS.TEMPO_DE >= ${timeToMinutes}
     )
     `
-
-    //CASO HAJA ERRO NA HORA DA CONSULTA DO BANCO DE DADOS
+        //CASO HAJA ERRO NA HORA DA CONSULTA DO BANCO DE DADOS
     try {
         const db = await Database
-        const proffys = await db.all(query)
 
-        //return res.render('feedCliente.html', { proffys, filters, weekdays })
-        return res.render('feedCliente.html')
+        const Servicos = await db.all(query)
+        console.log(Servicos)
+
+        return res.render('feedCliente.html', { Servicos, filters, weekdays })
+            //return res.render('feedCliente.html')
     } catch (error) {
         console.log(error)
     }
@@ -51,10 +55,6 @@ function pageCadastro(req, res) {
     return res.render("Cadastro.html", { weekdays })
 }
 
-function pageCadastroServico(req, res) {
-
-    return res.render("CadastroServico.html")
-}
 async function saveCadastro(req, res) {
     const cadastraDiarista = require('./database/createDiarista')
     const cadastraCliente = require('./database/createCliente')
@@ -84,21 +84,19 @@ async function saveCadastro(req, res) {
 
 
     const classScheduleValues = req.body.weekday.map((weekday, index) => {
-        return {
-            weekday,
-            time_from: convertHoursToMinutes(req.body.time_from[index]),
-            time_to: convertHoursToMinutes(req.body.time_to[index])
-        }
-    })
-    console.log("TESTE");
-    //console.log(weekday);
-    console.log(convertHoursToMinutes(req.body.time_from[0]));
-    console.log(convertHoursToMinutes(req.body.time_to[0]));
-
+            return {
+                weekday,
+                time_from: convertHoursToMinutes(req.body.time_from[index]),
+                time_to: convertHoursToMinutes(req.body.time_to[index])
+            }
+        })
+        //console.log("TESTE");
+        //console.log(weekday);
+        //console.log(convertHoursToMinutes(req.body.time_from[0]));
+        //console.log(convertHoursToMinutes(req.body.time_to[0]));
     if (cadastroValor.youAre == 1) {
 
         try {
-
             const db = await Database
             await cadastraDiarista(db, { cadastroValor, logadrouroValor, disponibilidadeValor, classScheduleValues })
 
@@ -128,6 +126,5 @@ module.exports = {
     pageLanding,
     pageStudy,
     pageCadastro,
-    pageCadastroServico,
     saveCadastro
 }

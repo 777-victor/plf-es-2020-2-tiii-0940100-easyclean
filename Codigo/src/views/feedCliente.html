@@ -31,41 +31,40 @@
                         <label for="weekday">Dia da Semana</label>
                         <select name="weekday" id="weekday">
                             <option value=""disabled="" hidden>Selecione uma opção</option>
-                            <option value="0">Domingo</option>
-                            <option value="1">Segunda-Feira</option>
-                            <option value="2">Terça-Feira</option>
-                            <option value="3">Quarta-Feira</option>
-                            <option value="4">Quinta-Feira</option>
-                            <option value="5">Sexta-Feira</option>
-                            <option value="6">Sábado</option>
+                            {%for weekday in weekdays %}
+                            <option value="{{loop.index0}}" {{ "selected" if filters.weekday == loop.index0}}>
+                                {{weekday}}
+                            </option>
+                            {%endfor%}
                         </select>
                     </div>
                     <div class="select-block">
                         <label for="time">Hora</label>
-                        <input name="time" id="time" type="time">
+                        <input name="time" id="time" type="time" value="{{filters.time}}">
                     </div>
                     <button type="submit">Filtrar</button>
                 </form>
             </div>
         </header>
         <main>
-            {%for proffy in proffys%}
+
+            {% for Servico in Servicos %}
+
             <article class="teacher-item">
                 <header>
-                    <img src="{{proffy.avatar}}" alt="{{proffy.name}}">
+                    <img src="{{Servico.IMG_DIARISTA}}">
                     <div>
-                        <strong>{{proffy.name}}</strong>
-                        <span>{{proffy.subject}}</span>
+                        <strong>{{Servico.NOME}}</strong>
                     </div>
                 </header>
-                <p>{{proffy.bio}}</p>
+                <p>{{Servico.DESCRICAO}}</p>
                 <footer>
-                    <p>Preço/Hora <strong>{{proffy.cost}}</strong></p>
-                    <a href="https://api.whatsapp.com/send?1=pt_BR&phone=55{{proffy.whatsapp}}&text=Tenho interesse na sua aula de {{proffy.subject}} {{proffy.name}}" class="button" target="_blank"><img src="images/icons/whatsapp.svg" alt="WhatsApp">Entrar em contato</button>
+                    <p>Preço/Hora <strong>{{Servico["VALOR"]}}</strong></p>
+                    <a href="https://api.whatsapp.com/send?1=pt_BR&phone=55{{Servico.TELEFONE}}&text=Tenho interesse no seu servico {{Servico.name}}" class="button" target="_blank"><img src="images/icons/whatsapp.svg" alt="WhatsApp">Entrar em contato</button>
                     </a>
                 </footer>
             </article>
-            {%endfor%}
+            {% endfor %}
         </main>
     </div>
 

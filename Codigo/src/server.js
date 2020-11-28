@@ -6,7 +6,6 @@ const {
     pageLanding,
     pageStudy,
     pageCadastro,
-    pageCadastroServico,
     saveCadastro
 } = require('./pages')
 
@@ -26,6 +25,5 @@ server.use(express.static("public"))
     .get("/", pageLanding)
     .get("/feedCliente", pageStudy)
     .get("/Cadastro", pageCadastro)
-    .get("/CadastroServico", pageCadastroServico)
     .post("/save-cadastro", saveCadastro)
     .listen(5500)
