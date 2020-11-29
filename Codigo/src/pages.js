@@ -8,34 +8,39 @@ function pageLanding(req, res) {
     return res.render("index.html")
 }
 
-async function pageStudy(req, res) {
+async function pagefeedCliente(req, res) {
     const filters = req.query
 
 
-    if (!filters.weekday || !filters.time) {
+    if (!filters.weekday || (!filters.tempo_de || !filters.tempo_ate)) {
         //return res.render("feedCliente.html", { filters, weekdays })
         return res.render('feedCliente.html', { filters, weekdays })
     }
 
     //CONVERTER HORAS EM MINUTOS
-    const timeToMinutes = convertHoursToMinutes(filters.time)
+    const tempo_de = convertHoursToMinutes(filters.tempo_de)
+    const tempo_ate = convertHoursToMinutes(filters.tempo_ate)
 
     // console.log(filters.weekday)
-    console.log(timeToMinutes);
+    console.log(tempo_de);
+    console.log(tempo_ate);
 
     const query = `
-    SELECT DISPONIBILIDADE.*, DIARISTA.*
+    SELECT DISPONIBILIDADE.*, DIARISTA.*, HORARIOS.*
     FROM DIARISTA
     JOIN DISPONIBILIDADE ON (DISPONIBILIDADE.DIARISTA_ID = DIARISTA.ID)
+    JOIN HORARIOS ON (HORARIOS.DISPONIBILIDADE_ID = DISPONIBILIDADE.ID)
     WHERE EXISTS(
       SELECT HORARIOS.*
       FROM HORARIOS
       WHERE HORARIOS.DISPONIBILIDADE_ID = DISPONIBILIDADE.ID
       AND HORARIOS.DIA_SEMANA = ${filters.weekday}
-      AND HORARIOS.TEMPO_DE >= ${timeToMinutes}
+      AND HORARIOS.TEMPO_DE >= ${tempo_de}
+      AND HORARIOS.TEMPO_ATE <= ${tempo_ate}
     )
     `
-        //CASO HAJA ERRO NA HORA DA CONSULTA DO BANCO DE DADOS
+
+    //CASO HAJA ERRO NA HORA DA CONSULTA DO BANCO DE DADOS
     try {
         const db = await Database
 
@@ -52,8 +57,28 @@ async function pageStudy(req, res) {
 function pageCadastro(req, res) {
     //SE NÃO, MOSTRAR A PÁGINA
 
-    return res.render("Cadastro.html", { weekdays })
+
+    return res.render("Cadastro.html")
 }
+
+function pageLogin(req, res) {
+    //SE NÃO, MOSTRAR A PÁGINA
+
+
+    return res.render("login.html")
+}
+
+function checkLogin(req, res) {
+
+    // stored data from the register-form
+    const filters = req.query
+        // entered data from the login-form
+    console.log(filters.user)
+    console.log(filters.senha)
+
+
+}
+
 
 async function saveCadastro(req, res) {
     const cadastraDiarista = require('./database/createDiarista')
@@ -124,7 +149,9 @@ async function saveCadastro(req, res) {
 
 module.exports = {
     pageLanding,
-    pageStudy,
+    pageLogin,
+    pagefeedCliente,
     pageCadastro,
+    checkLogin,
     saveCadastro
 }

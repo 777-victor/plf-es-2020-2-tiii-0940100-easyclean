@@ -4,7 +4,7 @@ const server = express()
 
 const {
     pageLanding,
-    pageStudy,
+    pagefeedCliente,
     pageCadastro,
     saveCadastro
 } = require('./pages')
@@ -23,7 +23,7 @@ server
     //rotas da aplicação
 server.use(express.static("public"))
     .get("/", pageLanding)
-    .get("/feedCliente", pageStudy)
+    .get("/feedCliente", pagefeedCliente)
     .get("/Cadastro", pageCadastro)
     .post("/save-cadastro", saveCadastro)
     .listen(5500)
