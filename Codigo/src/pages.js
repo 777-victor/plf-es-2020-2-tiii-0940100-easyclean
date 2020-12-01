@@ -6,7 +6,9 @@ const { weekdays, convertHoursToMinutes } = require('./utils/format')
 function pageLanding(req, res) {
     return res.render("index.html")
 }
-
+function loginUsuario(req, res){
+    return res.render("login.html")
+}
 async function pageStudy(req, res) {
     const filters = req.query
 
@@ -55,6 +57,8 @@ function pageCadastroServico(req, res) {
 
     return res.render("CadastroServico.html")
 }
+
+
 async function saveCadastro(req, res) {
     const cadastraDiarista = require('./database/createDiarista')
     const cadastraCliente = require('./database/createCliente')
@@ -129,5 +133,6 @@ module.exports = {
     pageStudy,
     pageCadastro,
     pageCadastroServico,
-    saveCadastro
+    saveCadastro,
+    loginUsuario
 }
