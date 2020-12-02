@@ -11,7 +11,6 @@ function pageLanding(req, res) {
 async function pagefeedCliente(req, res) {
     const filters = req.query
 
-
     if (!filters.weekday || (!filters.tempo_de || !filters.tempo_ate)) {
         //return res.render("feedCliente.html", { filters, weekdays })
         return res.render('feedCliente.html', { filters, weekdays })
