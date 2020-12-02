@@ -1,0 +1,92 @@
+  :root {
+      --color-background: #E5E5E5;
+      --color-primary-lighter: #3ba4e0;
+      --color-primary-light: #178ace;
+      --color-primary: #04BF58;
+      --color-primary-dark: #0b5a2e;
+      --color-primary-dark: #064422;
+      --color-secondary: #e98e17;
+      --color-secondary-dark: #b36602;
+      --color-title-in-primary: #FFFFFF;
+      --color-text-in-primary: #D4C2FF;
+      --color-text-title: #19171f;
+      --color-text-complement: #9C98A6;
+      --color-text-base: #080413;
+      --color-line-in-white: #E6E6F0;
+      --color-input-background: #F8F8FC;
+      --color-button-text: #FFFFFF;
+      --color-box-base: #DCD5D5;
+      --color-box-footer: #FAFAFC;
+      --color-small-info: #C1BCCC;
+      /* tamanho da fonte padrão: 16px / 100% / 1rem (root element - relativo ao que foi setado no root) */
+      font-size: 60%;
+  }
+  /* asterisco significa qualquer elemento */
+  
+  * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+  }
+  
+  html,
+  body {
+      height: 100vh;
+  }
+  
+  body {
+      background-color: var(--color-background);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+  
+  body,
+  input,
+  button,
+  textarea {
+      font: 500 1.6rem Arial;
+      /* 500=font weight - size 1.6rem - family poppins  */
+      color: var(--color-text-base);
+  }
+  
+  #container {
+      width: 90vw;
+      /* quebra a tela em 100 mas usa somente 90*/
+      max-width: 400px;
+      padding: 10px;
+      background-color: var(--color-primary);
+      border-radius: 15px;
+      box-shadow:5px 5px 5px black;
+  }
+  button{
+      padding: 10px;
+      width: 100px;
+      border-radius: 20px;
+  }
+  div.campo{
+      padding: 10px;
+      margin: 10px;
+  }
+  div.campo input{
+    width: 100%;
+    height: 5.6rem;
+    margin-top: 0.8rem;
+    border-radius: 0.8rem;
+    background: var(--color-input-background);
+    border: 1px solid var(--color-line-in-white);
+    outline: 0;
+    padding: 0 1.6rem;
+    font: 1.6rem Archivo;
+  }
+  
+  a{
+      padding: 10px;
+      text-decoration: none;
+      font-size: large;
+  }
+  @media(min-width) {
+       :root {
+          font-size: 62.5%;
+      }
+  }
