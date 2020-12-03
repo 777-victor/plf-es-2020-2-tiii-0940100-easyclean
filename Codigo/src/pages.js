@@ -57,7 +57,7 @@ function pageCadastro(req, res) {
     //SE NÃO, MOSTRAR A PÁGINA
 
 
-    return res.render("Cadastro.html")
+    return res.render("Cadastro.html", { weekdays })
 }
 
 function pageLogin(req, res) {
