@@ -56,7 +56,7 @@ async function pagefeedCliente(req, res) {
 function pageCadastro(req, res) {
     //SE NÃO, MOSTRAR A PÁGINA
 
-
+    return res.render("Cadastro.html", {weekdays})
     return res.render("Cadastro.html")
 }
 
