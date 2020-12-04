@@ -56,8 +56,8 @@ async function pagefeedCliente(req, res) {
 function pageCadastro(req, res) {
     //SE NÃO, MOSTRAR A PÁGINA
 
-    return res.render("Cadastro.html", {weekdays})
-    return res.render("Cadastro.html")
+
+    return res.render("Cadastro.html", { weekdays })
 }
 
 function pageLogin(req, res) {
@@ -90,7 +90,7 @@ async function saveCadastro(req, res) {
         whatsapp: req.body.whatsapp,
         email: req.body.email,
         youAre: req.body.youAre,
-        password:req.body.password
+        password: req.body.password
     }
 
     const logadrouroValor = {
@@ -142,7 +142,7 @@ async function saveCadastro(req, res) {
         } catch (error) {
             console.log(error)
         }
-        
+
     }
 
 }
@@ -160,4 +160,3 @@ module.exports = {
     checkLogin,
     saveCadastro
 }
-
