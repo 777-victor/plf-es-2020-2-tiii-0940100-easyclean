@@ -15,7 +15,7 @@
     <h1>Login</h1>
   <div class="campo">
     <label for="email">Email</label>
-    <input type="email" id="email" name="email" required>
+    <input class="emailuser" type="email" id="email" name="email" required>
   </div>
   <div class="campo">
     <label for="password">Password</label>
@@ -26,21 +26,30 @@
 <h3>Ainda não possui login?<a href="/cadastro">Registre-se</a></h3>
 </div>
 <script>
-    function findLogin(pickId)
+    function findLogin()
 {   
+    let email=document.getElementById('email')
+    let sql = `SELECT emailuser
+           FROM users
+           WHERE emailuser  = `;
+
+
     return this.db.transaction(function(tx){
-                   return tx.executeSql("SELECT pid FROM page WHERE pid="+pickId, [], function(tx, result) {
+                   return tx.executeSql("SELECT emailusers FROM USERS WHERE emailuser like ="+email, [], function(tx, result) {
                     if(result) {    
                         if(result.rows.length > 0){
-                            return false;                                   
+                            return false;  
+                            alert("negado")                                 
                         }
                         else
                         {
                             return true;
+                            alert("aprovado")  
                         }    
                     }
                     else{
-                        return false;  
+                        return false; 
+                        alert("negado")   
                     }
                 })
             })
