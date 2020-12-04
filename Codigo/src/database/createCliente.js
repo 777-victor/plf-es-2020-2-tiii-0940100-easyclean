@@ -38,9 +38,16 @@ module.exports = async function(db, { cadastroValor, logadrouroValor }) {
         );
     `)
 
+    const insertUsers= await db.run(`
+    INSERT INTO USERS(
+        email,
+        senha
+    ) VALUES (
+        "${cadastroValor.email}",
+        "${cadastroValor.password}"
+    );
 
-
-
+    `)
 
     //INSERIR DADOS NA TABELA ENDERECO
 

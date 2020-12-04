@@ -89,7 +89,8 @@ async function saveCadastro(req, res) {
         avatar: req.body.avatar,
         whatsapp: req.body.whatsapp,
         email: req.body.email,
-        youAre: req.body.youAre
+        youAre: req.body.youAre,
+        password:req.body.password
     }
 
     const logadrouroValor = {
