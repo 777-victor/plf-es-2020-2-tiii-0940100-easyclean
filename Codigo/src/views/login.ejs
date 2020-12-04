@@ -28,31 +28,15 @@
 <script>
     function findLogin()
 {   
-    let email=document.getElementById('email')
+    let email=document.getElementById('email').value
     let sql = `SELECT emailuser
            FROM users
-           WHERE emailuser  = `;
-
-
-    return this.db.transaction(function(tx){
-                   return tx.executeSql("SELECT emailusers FROM USERS WHERE emailuser like ="+email, [], function(tx, result) {
-                    if(result) {    
-                        if(result.rows.length > 0){
-                            return false;  
-                            alert("negado")                                 
-                        }
-                        else
-                        {
-                            return true;
-                            alert("aprovado")  
-                        }    
-                    }
-                    else{
-                        return false; 
-                        alert("negado")   
-                    }
-                })
-            })
+           WHERE emailuser  = `+email;
+  console.log(sql)
+  if(email=sql){
+    alert("funcionou")
+  }
+   
 }
 </script>
 </body>
