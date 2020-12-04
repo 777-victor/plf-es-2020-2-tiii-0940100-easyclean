@@ -6,13 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
 </head>
+
 <body>
-    
-<% if (messages.error) { %>
-  <%=messages.error%>
-<% } %>
+
 <div id="container">
-<form action="/login" method="POST">
+<form id="loginform" action="/feedCliente" method="GET">
   
     <h1>Login</h1>
   <div class="campo">
@@ -23,9 +21,30 @@
     <label for="password">Password</label>
     <input class=".input-block" type="password" id="password" name="password" required>
   </div>
-  <button type="submit">Entrar</button>
+  <button onclick="findLogin()" type="submit">Entrar</button>
 </form>
-<h3>Ainda não possui login?<a href="/register">Registre-se</a></h3>
+<h3>Ainda não possui login?<a href="/cadastro">Registre-se</a></h3>
 </div>
+<script>
+    function findLogin(pickId)
+{   
+    return this.db.transaction(function(tx){
+                   return tx.executeSql("SELECT pid FROM page WHERE pid="+pickId, [], function(tx, result) {
+                    if(result) {    
+                        if(result.rows.length > 0){
+                            return false;                                   
+                        }
+                        else
+                        {
+                            return true;
+                        }    
+                    }
+                    else{
+                        return false;  
+                    }
+                })
+            })
+}
+</script>
 </body>
 </html>

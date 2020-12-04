@@ -56,8 +56,13 @@ async function pagefeedCliente(req, res) {
 function pageCadastro(req, res) {
     //SE NÃO, MOSTRAR A PÁGINA
 
+<<<<<<< HEAD
 
     return res.render("Cadastro.html", { weekdays })
+=======
+    return res.render("Cadastro.html", {weekdays})
+    return res.render("Cadastro.html")
+>>>>>>> 7fff3c7f2ca217f79176bc2e0b26b1608bbe14ea
 }
 
 function pageLogin(req, res) {
@@ -89,7 +94,8 @@ async function saveCadastro(req, res) {
         avatar: req.body.avatar,
         whatsapp: req.body.whatsapp,
         email: req.body.email,
-        youAre: req.body.youAre
+        youAre: req.body.youAre,
+        password:req.body.password
     }
 
     const logadrouroValor = {
@@ -141,10 +147,15 @@ async function saveCadastro(req, res) {
         } catch (error) {
             console.log(error)
         }
-
+        
     }
 
 }
+
+
+
+
+
 
 module.exports = {
     pageLanding,
@@ -154,3 +165,4 @@ module.exports = {
     checkLogin,
     saveCadastro
 }
+
