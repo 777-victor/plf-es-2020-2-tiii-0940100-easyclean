@@ -171,7 +171,7 @@
                 <p>
                     <img src="/images/icons/warning.svg" alt="Aviso importante"> Importante! <br> Preencha todos os dados
                 </p>
-                <button type="submit" form="save-cadastro">Salvar cadastro</button>
+                <button id="btnCadastro" type="submit" form="save-cadastro">Salvar cadastro</button>
             </footer>
         </main>
     </div>
@@ -271,6 +271,19 @@
                 limpa_formulário_cep();
             }
         };
+        let users=[];
+        const addUsers = ()=>{
+            let user={
+                id: Date.now(),
+                emailUser:document.getElementById('email').value,
+                passwordUser: document.getElementById('password').value
+            }
+            users.push(user);
+            localStorage.setItem('email1',JSON.stringify(users));
+        }
+        document.addEventListener('DOMContentLoaded',()=>{
+            document.getElementById('btnCadastro').addEventListener('click',addUsers)
+        })
     </script>
 
 
