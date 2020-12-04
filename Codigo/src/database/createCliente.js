@@ -40,8 +40,8 @@ module.exports = async function(db, { cadastroValor, logadrouroValor }) {
 
     const insertUsers= await db.run(`
     INSERT INTO USERS(
-        email,
-        senha
+        emailuser,
+        senhauser
     ) VALUES (
         "${cadastroValor.email}",
         "${cadastroValor.password}"

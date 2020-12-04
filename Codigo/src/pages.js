@@ -148,6 +148,10 @@ async function saveCadastro(req, res) {
 }
 
 
+
+
+
+
 module.exports = {
     pageLanding,
     pageLogin,
@@ -156,3 +160,4 @@ module.exports = {
     checkLogin,
     saveCadastro
 }
+
