@@ -21,37 +21,30 @@
     <label for="password">Password</label>
     <input class=".input-block" type="password" id="password" name="password" required>
   </div>
-  <button type="submit">Entrar</button>
+  <button onclick="findLogin()" type="submit">Entrar</button>
 </form>
-<h3>Ainda não possui login?<a href="/register">Registre-se</a></h3>
+<h3>Ainda não possui login?<a href="/cadastro">Registre-se</a></h3>
 </div>
 <script>
-  /*async function testaLogin(req, res) {
-    const filters = req.query
-    var emailLogin = document.getElementById('email').value
-    var passLogin = document.getElementById('password').value
- 
-
-
-    const checalogin = `
-    SELECT *
-    FROM user
-    
-    `
-        
-    //CASO HAJA ERRO NA HORA DA CONSULTA DO BANCO DE DADOS
-    try {
-        const db = await Database
-
-        const Servicos = await db.all(query)
-        console.log(Servicos)
-
-        return res.render('feedCliente.html', { Servicos, filters, weekdays })
-            //return res.render('feedCliente.html')
-    } catch (error) {
-        console.log(error)
-    }
-}*/
+    function findLogin(pickId)
+{   
+    return this.db.transaction(function(tx){
+                   return tx.executeSql("SELECT pid FROM page WHERE pid="+pickId, [], function(tx, result) {
+                    if(result) {    
+                        if(result.rows.length > 0){
+                            return false;                                   
+                        }
+                        else
+                        {
+                            return true;
+                        }    
+                    }
+                    else{
+                        return false;  
+                    }
+                })
+            })
+}
 </script>
 </body>
 </html>
