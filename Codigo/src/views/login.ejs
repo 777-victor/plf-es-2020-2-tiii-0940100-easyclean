@@ -26,7 +26,7 @@
 <h3>Ainda não possui login?<a href="/cadastro">Registre-se</a></h3>
 </div>
 <script>
-    function findLogin()
+    function findLogin(req,res)
 {   
     let email=document.getElementById('email').value
     let sql = `SELECT emailuser
@@ -34,7 +34,10 @@
            WHERE emailuser  = `+email;
   console.log(sql)
   if(email=sql){
-    alert("funcionou")
+    return res.render("/feedCliente.html")
+  }else{
+    alert("ERRO - TENTE NOVAMENTE")
+    return res.render("/login")
   }
    
 }
