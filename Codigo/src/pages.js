@@ -60,6 +60,10 @@ function pageCadastro(req, res) {
     return res.render("Cadastro.html", { weekdays })
 }
 
+function pageCadastrarServico(req, res) {
+    return res.render("CadastrarServico.html")
+}
+
 function pageLogin(req, res) {
     //SE NÃO, MOSTRAR A PÁGINA
 
@@ -101,55 +105,85 @@ async function saveCadastro(req, res) {
         estado: req.body.uf
     }
 
-    const disponibilidadeValor = {
-        valor: req.body.valor,
-        bio: req.body.descricao
-    }
-
-
-
-    const classScheduleValues = req.body.weekday.map((weekday, index) => {
-            return {
-                weekday,
-                time_from: convertHoursToMinutes(req.body.time_from[index]),
-                time_to: convertHoursToMinutes(req.body.time_to[index])
-            }
-        })
-        //console.log("TESTE");
-        //console.log(weekday);
-        //console.log(convertHoursToMinutes(req.body.time_from[0]));
-        //console.log(convertHoursToMinutes(req.body.time_to[0]));
+    //console.log("TESTE");
+    //console.log(weekday);
+    //console.log(convertHoursToMinutes(req.body.time_from[0]));
+    //console.log(convertHoursToMinutes(req.body.time_to[0]));
     if (cadastroValor.youAre == 1) {
 
         try {
             const db = await Database
-            await cadastraDiarista(db, { cadastroValor, logadrouroValor, disponibilidadeValor, classScheduleValues })
-
-            let queryString = "?weekday=" + req.body.weekday[0]
-            queryString = "?time=" + req.body.time_from[0]
+            await cadastraDiarista(db, { cadastroValor, logadrouroValor })
 
             //return res.redirect("/feedCliente" + queryString)
-            return res.redirect("/feedCliente")
-        } catch (error) {
-            console.log(error)
-        }
+            const query = `
+            SELECT MAX(id) FROM DIARISTA;
+            `
+
+            //CASO HAJA ERRO NA HORA DA CONSULTA DO BANCO DE DADOS
+            try {
+                const db = await Database
+
+                const idDiarista = await db.all(query)
+                console.log(idDiarista)
+                var jsonStr = JSON.stringify(idDiarista);
+
+                window.localStorage.setItem('idDiarista', jsonStr);
+
+                return res.redirect("/CadastrarServico")
+            } catch (error) { console.log(error) }
+        } catch (error) { console.log(error) }
+
+
     } else if (cadastroValor.youAre == 2) {
         try {
             const db = await Database
             await cadastraCliente(db, { cadastroValor, logadrouroValor })
                 //return res.redirect("/feedCliente" + queryString)
             return res.redirect("/feedCliente")
-        } catch (error) {
-            console.log(error)
-        }
+        } catch (error) { console.log(error) }
 
     }
 
 }
 
+async function saveServico(req, res) {
+    const cadastraDiarista = require('./database/createDiarista')
+    const cadastraCliente = require('./database/createCliente')
+
+    //console.log("TESTE");
+    //console.log(weekday);
+    //console.log(convertHoursToMinutes(req.body.time_from[0]));
+    //console.log(convertHoursToMinutes(req.body.time_to[0]));
+
+    const disponibilidadeValor = {
+        valor: req.body.valor,
+        bio: req.body.descricao
+    }
+
+    const classScheduleValues = req.body.weekday.map((weekday, index) => {
+        return {
+            weekday,
+            time_from: convertHoursToMinutes(req.body.time_from[index]),
+            time_to: convertHoursToMinutes(req.body.time_to[index])
+        }
+    })
+
+    try {
+        const db = await Database
+        await cadastraDiarista(db, { cadastroValor, logadrouroValor, disponibilidadeValor, classScheduleValues })
+
+        let queryString = "?weekday=" + req.body.weekday[0]
+        queryString = "?time=" + req.body.time_from[0]
+
+        //return res.redirect("/feedCliente" + queryString)
+        return res.redirect("/CadastrarServico")
+    } catch (error) {
+        console.log(error)
+    }
 
 
-
+}
 
 
 module.exports = {
@@ -157,6 +191,7 @@ module.exports = {
     pageLogin,
     pagefeedCliente,
     pageCadastro,
-    checkLogin,
-    saveCadastro
+    pageCadastrarServico,
+    saveCadastro,
+    saveServico
 }
