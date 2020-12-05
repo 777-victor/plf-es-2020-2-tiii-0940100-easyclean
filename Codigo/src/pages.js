@@ -61,22 +61,14 @@ function pageCadastro(req, res) {
 }
 
 function pageLogin(req, res) {
-    //SE NÃO, MOSTRAR A PÁGINA
-
-
-    return res.render("login.html")
+    return res.render("login.ejs")
 }
 
-function checkLogin(req, res) {
+function pageServico(req, res) {
 
-    // stored data from the register-form
-    const filters = req.query
-        // entered data from the login-form
-    console.log(filters.user)
-    console.log(filters.senha)
-
-
+    return res.render("CadastrarServico.html")
 }
+
 
 
 async function saveCadastro(req, res) {
@@ -148,15 +140,12 @@ async function saveCadastro(req, res) {
 }
 
 
-
-
-
-
 module.exports = {
     pageLanding,
     pageLogin,
     pagefeedCliente,
     pageCadastro,
-    checkLogin,
+    pageServico,
+    pageLogin,
     saveCadastro
 }
