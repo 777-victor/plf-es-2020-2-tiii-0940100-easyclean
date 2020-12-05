@@ -11,6 +11,7 @@ function pageLanding(req, res) {
 async function pagefeedCliente(req, res) {
     const filters = req.query
 
+
     if (!filters.weekday || (!filters.tempo_de || !filters.tempo_ate)) {
         //return res.render("feedCliente.html", { filters, weekdays })
         return res.render('feedCliente.html', { filters, weekdays })
@@ -57,7 +58,7 @@ function pageCadastro(req, res) {
     //SE NÃO, MOSTRAR A PÁGINA
 
 
-    return res.render("Cadastro.html", { weekdays })
+    return res.render("Cadastro.html")
 }
 
 function pageLogin(req, res) {
@@ -89,8 +90,7 @@ async function saveCadastro(req, res) {
         avatar: req.body.avatar,
         whatsapp: req.body.whatsapp,
         email: req.body.email,
-        youAre: req.body.youAre,
-        password: req.body.password
+        youAre: req.body.youAre
     }
 
     const logadrouroValor = {
@@ -146,11 +146,6 @@ async function saveCadastro(req, res) {
     }
 
 }
-
-
-
-
-
 
 module.exports = {
     pageLanding,

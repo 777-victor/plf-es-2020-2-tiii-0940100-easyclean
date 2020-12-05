@@ -27,16 +27,14 @@ module.exports = async function(db, { cadastroValor, logadrouroValor, disponibil
         img_diarista,
         telefone,
         email,
-        logradouro_id,
-        senha
+        logradouro_id
     ) VALUES (
         "${cadastroValor.name}",
         "${cadastroValor.cpf}",
         "${cadastroValor.avatar}",
         "${cadastroValor.whatsapp}",
         "${cadastroValor.email}",
-        "${logradouro_id}",
-        "${cadastroValor.password}"
+        "${logradouro_id}"
     );
     `)
 
@@ -71,17 +69,6 @@ module.exports = async function(db, { cadastroValor, logadrouroValor, disponibil
         `)
     })
 
-    const insertUsers= await db.run(`
-        INSERT INTO USERS(
-            emailuser,
-            senhauser
-        ) VALUES (
-            "${cadastroValor.email}",
-            "${cadastroValor.password}"
-        );
-
-        `)
-        
     //AQUI VOU EXECUTAR TODOS OS DB.RUNS() DAS CLASS_SCHEDULES
     await Promise.all(insertedAllClassScheduleValues)
 

@@ -73,14 +73,7 @@ function execute(db) {
      DISPONIBILIDADE_ID INTEGER
     
     );
-
-    CREATE TABLE IF NOT EXISTS USERS(
-
-      ID_USER INTEGER PRIMARY KEY AUTOINCREMENT,
-      EMAILUSER TEXT,
-      SENHAUSER TEXT
-
-    );
+    
     `)
 }
 
