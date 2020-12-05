@@ -1,3 +1,7 @@
+input#password{
+    -webkit-text-security:disc ;
+}
+
 
 .select-block label,
 .input-block label,

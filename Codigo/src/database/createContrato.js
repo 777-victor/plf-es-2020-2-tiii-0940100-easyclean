@@ -27,29 +27,20 @@ module.exports = async function(db, { cadastroValor, logadrouroValor }) {
             img_cliente,
             telefone,
             email,
-            logradouro_id,
-            senha
+            logradouro_id
         ) VALUES (
             "${cadastroValor.name}",
             "${cadastroValor.cpf}",
             "${cadastroValor.avatar}",
             "${cadastroValor.whatsapp}",
             "${cadastroValor.email}",
-            "${logradouro_id}",
-            "${cadastroValor.password}"
+            "${logradouro_id}"
         );
     `)
 
-    const insertUsers= await db.run(`
-    INSERT INTO USERS(
-        emailuser,
-        senhauser
-    ) VALUES (
-        "${cadastroValor.email}",
-        "${cadastroValor.password}"
-    );
 
-    `)
+
+
 
     //INSERIR DADOS NA TABELA ENDERECO
 
