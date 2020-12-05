@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="/styles/partials/page-give-classes.css">
     <link rel="shortcut icon" href="images/celularEstalando.png">
 
-
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&amp;family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet">
 
     <script src="/scripts/addField.js" defer></script>
@@ -112,56 +111,6 @@
 
                     </div>
 
-                    <div class="cadastraServico" id="cadastraServico" style="display: none;">
-
-                        <fieldset>
-                            <legend>Cadastrar Servico</legend>
-                            <div class="input-block">
-                                <label for="valor">Valor</label>
-                                <input name="valor" id="valor" required>
-                            </div>
-
-                        </fieldset>
-
-                        <fieldset>
-                            <div class="textarea-block">
-                                <label for="descricao">Descricao</label>
-                                <textarea name="descricao" id="descricao" required></textarea>
-                            </div>
-                        </fieldset>
-
-                        <fieldset id="schedule-items">
-                            <legend>Horários disponíveis
-                                <button type="button" id="add-time">+ Novo Horário</button>
-                            </legend>
-
-                            <div class="schedule-item">
-
-                                <div class="select-block">
-                                    <label for="weekday">Dia da semana</label>
-                                    <select name="weekday[]" required>
-                                            <option value="">Selecione uma opção</option>
-                                            {%for weekday in weekdays %}
-                                                <option value="{{loop.index0}}">
-                                                    {{weekday}}
-                                                </option>
-                                            {%endfor%}
-                                        </select>
-                                </div>
-
-                                <div class="input-block">
-                                    <label for="time_from">Das</label>
-                                    <input type="time" name="time_from[]" required>
-                                </div>
-
-                                <div class="input-block">
-                                    <label for="time_to">Até</label>
-                                    <input type="time" name="time_to[]" required>
-                                </div>
-                            </div>
-
-                        </fieldset>
-                    </div>
 
 
                 </fieldset>
@@ -271,18 +220,18 @@
                 limpa_formulário_cep();
             }
         };
-        let users=[];
-        const addUsers = ()=>{
-            let user={
+        let users = [];
+        const addUsers = () => {
+            let user = {
                 id: Date.now(),
-                emailUser:document.getElementById('email').value,
+                emailUser: document.getElementById('email').value,
                 passwordUser: document.getElementById('password').value
             }
             users.push(user);
-            localStorage.setItem('email1',JSON.stringify(users));
+            localStorage.setItem('email1', JSON.stringify(users));
         }
-        document.addEventListener('DOMContentLoaded',()=>{
-            document.getElementById('btnCadastro').addEventListener('click',addUsers)
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('btnCadastro').addEventListener('click', addUsers)
         })
     </script>
 
