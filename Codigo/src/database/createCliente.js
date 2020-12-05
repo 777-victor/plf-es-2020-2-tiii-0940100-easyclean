@@ -27,14 +27,16 @@ module.exports = async function(db, { cadastroValor, logadrouroValor }) {
             img_cliente,
             telefone,
             email,
-            logradouro_id
+            logradouro_id,
+            senha
         ) VALUES (
             "${cadastroValor.name}",
             "${cadastroValor.cpf}",
             "${cadastroValor.avatar}",
             "${cadastroValor.whatsapp}",
             "${cadastroValor.email}",
-            "${logradouro_id}"
+            "${logradouro_id}",
+            "${cadastroValor.password}"
         );
     `)
 

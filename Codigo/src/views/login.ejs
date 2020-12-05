@@ -29,18 +29,23 @@
     function findLogin(req,res)
 {   
     let email=document.getElementById('email').value
-    let sql = `SELECT emailuser
-           FROM users
-           WHERE emailuser  = `+email;
-  console.log(sql)
+    let db = require('./database/db')
+    let sql = `SELECT email
+           FROM diarista
+           WHERE email  = `+email;
+    let sql2 = `SELECT email
+           FROM cliente
+           WHERE email  = `+email;
   if(email=sql){
     return res.render("/feedCliente.html")
   }else{
     alert("ERRO - TENTE NOVAMENTE")
     return res.render("/login")
   }
-   
+  localStorage.setItem('teste',email)
 }
+
+
 </script>
 </body>
 </html>
