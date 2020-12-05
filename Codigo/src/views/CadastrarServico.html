@@ -13,7 +13,9 @@
     <link rel="shortcut icon" href="images/celularEstalando.png">
     <script src="/scripts/addField.js" defer></script>
 
-    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&amp;family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&amp;family=Poppins:wght@400;600&amp;display=swap"
+        rel="stylesheet">
 
 
 </head>
@@ -39,7 +41,7 @@
             <form action="" id="create-class">
 
                 <fieldset>
-                    <legend>Cadastrar Servico</legend>
+                    <legend>Cadastrar Serviço</legend>
                     <div class="input-block">
                         <label for="Valor">Valor</label>
                         <input name="Valor" id="Valor" required>
@@ -47,9 +49,9 @@
 
                 </fieldset>
                 <fieldset>
-                    <legend>Sobre o servico</legend>
+                    <legend>Sobre o serviço</legend>
                     <div class="textarea-block">
-                        <label for="Descricao">Descricao</label>
+                        <label for="Descricao">Descriçao</label>
                         <textarea name="Descricao" id="Descricao" required></textarea>
                     </div>
                 </fieldset>
@@ -66,9 +68,9 @@
                             <select name="weekday[]" required>
                                 <option value="">Selecione uma opção</option>
                                 {%for weekday in weekdays %}
-                                    <option value="{{loop.index0}}">
-                                        {{weekday}}
-                                    </option>
+                                <option value="{{loop.index0}}">
+                                    {{weekday}}
+                                </option>
                                 {%endfor%}
                             </select>
                         </div>
@@ -91,7 +93,8 @@
 
             <footer>
                 <p>
-                    <img src="/images/icons/warning.svg" alt="Aviso importante"> Importante! <br> Preencha todos os dados
+                    <img src="/images/icons/warning.svg" alt="Aviso importante"> Importante! <br> Preencha todos os
+                    dados
                 </p>
                 <button type="submit" form="create-class">Salvar cadastro</button>
             </footer>

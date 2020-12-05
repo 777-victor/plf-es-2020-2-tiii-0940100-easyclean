@@ -13,7 +13,9 @@
     <link rel="shortcut icon" href="images/celularEstalando.png">
 
 
-    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&amp;family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&amp;family=Poppins:wght@400;600&amp;display=swap"
+        rel="stylesheet">
 
     <script src="/scripts/addField.js" defer></script>
 </head>
@@ -73,12 +75,13 @@
                 </fieldset>
 
                 <fieldset>
-                    <legend>Endereco</legend>
+                    <legend>Endereço</legend>
 
 
                     <div class="input-block">
                         <label for="cep">CEP</label>
-                        <input name="cep" type="text" id="cep" value="" size="10" maxlength="9" onblur="pesquisacep(this.value);" />
+                        <input name="cep" type="text" id="cep" value="" size="10" maxlength="9"
+                            onblur="pesquisacep(this.value);" />
                     </div>
 
                     <div class="input-block">
@@ -103,19 +106,21 @@
                     </div>
 
                     <div class="input-block">
-                        <legend class="youAre">Você é:
+                        <legend class="youAre"> Você é: </legend>
+                        <div class="opcao">
                             <select name="youAre" id="youAre" required onchange="mostraServico(this.value)">
-                            <option value="1">Diarista</option>
-                            <option value="2" selected>Cliente</option>
+                                <option value="1">Diarista</option>
+                                <option value="2" selected>Cliente</option>
                             </select>
-                        </legend>
+                        </div>
+
 
                     </div>
 
                     <div class="cadastraServico" id="cadastraServico" style="display: none;">
 
                         <fieldset>
-                            <legend>Cadastrar Servico</legend>
+                            <legend>Cadastrar Serviço</legend>
                             <div class="input-block">
                                 <label for="valor">Valor</label>
                                 <input name="valor" id="valor" required>
@@ -125,7 +130,7 @@
 
                         <fieldset>
                             <div class="textarea-block">
-                                <label for="descricao">Descricao</label>
+                                <label for="descricao">Descrição</label>
                                 <textarea name="descricao" id="descricao" required></textarea>
                             </div>
                         </fieldset>
@@ -140,13 +145,13 @@
                                 <div class="select-block">
                                     <label for="weekday">Dia da semana</label>
                                     <select name="weekday[]" required>
-                                            <option value="">Selecione uma opção</option>
-                                            {%for weekday in weekdays %}
-                                                <option value="{{loop.index0}}">
-                                                    {{weekday}}
-                                                </option>
-                                            {%endfor%}
-                                        </select>
+                                        <option value="">Selecione uma opção</option>
+                                        {%for weekday in weekdays %}
+                                        <option value="{{loop.index0}}">
+                                            {{weekday}}
+                                        </option>
+                                        {%endfor%}
+                                    </select>
                                 </div>
 
                                 <div class="input-block">
@@ -169,7 +174,8 @@
 
             <footer>
                 <p>
-                    <img src="/images/icons/warning.svg" alt="Aviso importante"> Importante! <br> Preencha todos os dados
+                    <img src="/images/icons/warning.svg" alt="Aviso importante"> Importante! <br> Preencha todos os
+                    dados
                 </p>
                 <button id="btnCadastro" type="submit" form="save-cadastro">Salvar cadastro</button>
             </footer>
@@ -271,18 +277,18 @@
                 limpa_formulário_cep();
             }
         };
-        let users=[];
-        const addUsers = ()=>{
-            let user={
+        let users = [];
+        const addUsers = () => {
+            let user = {
                 id: Date.now(),
-                emailUser:document.getElementById('email').value,
+                emailUser: document.getElementById('email').value,
                 passwordUser: document.getElementById('password').value
             }
             users.push(user);
-            localStorage.setItem('email1',JSON.stringify(users));
+            localStorage.setItem('email1', JSON.stringify(users));
         }
-        document.addEventListener('DOMContentLoaded',()=>{
-            document.getElementById('btnCadastro').addEventListener('click',addUsers)
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('btnCadastro').addEventListener('click', addUsers)
         })
     </script>
 

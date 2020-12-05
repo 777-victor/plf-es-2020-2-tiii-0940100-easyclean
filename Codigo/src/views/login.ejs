@@ -1,51 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <link rel="stylesheet" type="text/css" href="/styles/main-login.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+  <link rel="stylesheet" type="text/css" href="/styles/main-login.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="images/celularEstalando.png">
+  <title>Login</title>
 </head>
 
 <body>
 
-<div id="container">
-<form id="loginform" action="/feedCliente" method="GET">
-  
-    <h1>Login</h1>
-  <div class="campo">
-    <label for="email">Email</label>
-    <input class="emailuser" type="email" id="email" name="email" required>
+  <div id="container">
+    <div class="login">
+    <form id="loginform" action="/feedCliente" method="GET">
+
+      <h1>Login</h1>
+      <div class="campo">
+        <label for="email">Email</label>
+        <input class="emailuser" type="email" id="email" name="email" required>
+      </div>
+      <div class="campo">
+        <label for="password">Password</label>
+        <input class=".input-block" type="password" id="password" name="password" required>
+      </div>
+      <button onclick="findLogin()" type="submit">Entrar</button>
+    </form>
+    <h3>Ainda não possui login?<a href="/cadastro"><b>Registre-se</b></a></h3>
   </div>
-  <div class="campo">
-    <label for="password">Password</label>
-    <input class=".input-block" type="password" id="password" name="password" required>
   </div>
-  <button onclick="findLogin()" type="submit">Entrar</button>
-</form>
-<h3>Ainda não possui login?<a href="/cadastro">Registre-se</a></h3>
-</div>
-<script>
-    function findLogin(req,res)
-{   
-    let email=document.getElementById('email').value
-    let db = require('./database/db')
-    let sql = `SELECT email
+  <script>
+    function findLogin(req, res) {
+      let email = document.getElementById('email').value
+      let db = require('./database/db')
+      let sql = `SELECT email
            FROM diarista
-           WHERE email  = `+email;
-    let sql2 = `SELECT email
+           WHERE email  = `+ email;
+      let sql2 = `SELECT email
            FROM cliente
-           WHERE email  = `+email;
-  if(email=sql){
-    return res.render("/feedCliente.html")
-  }else{
-    alert("ERRO - TENTE NOVAMENTE")
-    return res.render("/login")
-  }
-  localStorage.setItem('teste',email)
-}
+           WHERE email  = `+ email;
+      if (email = sql) {
+        return res.render("/feedCliente.html")
+      } else {
+        alert("ERRO - TENTE NOVAMENTE")
+        return res.render("/login")
+      }
+      localStorage.setItem('teste', email)
+    }
 
 
-</script>
+  </script>
 </body>
+
 </html>
