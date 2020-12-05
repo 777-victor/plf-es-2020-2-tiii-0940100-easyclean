@@ -10,7 +10,6 @@ function execute(db) {
       ID INTEGER PRIMARY KEY AUTOINCREMENT,
       CPF TEXT,
       NOME TEXT, 
-      SENHA TEXT,
       DATA_CADASTRO datetime default current_timestamp,
       EMAIL TEXT,
       IMG_DIARISTA TEXT,
@@ -45,7 +44,6 @@ function execute(db) {
       CPF TEXT,
       NOME TEXT,
       EMAIL TEXT,
-      SENHA TEXT,
       IMG_CLIENTE TEXT,
       TELEFONE TEXT,
       LOGRADOURO_ID INTEGER
