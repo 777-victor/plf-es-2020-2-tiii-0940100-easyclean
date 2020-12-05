@@ -26,7 +26,7 @@
 <h3>Ainda não possui login?<a href="/cadastro">Registre-se</a></h3>
 </div>
 <script>
-    function findLogin(req,res)
+   /* function findLogin(req,res)
 {   
     let email=document.getElementById('email').value
     let db = require('./database/db')
@@ -43,6 +43,21 @@
     return res.render("/login")
   }
   localStorage.setItem('teste',email)
+}*/
+
+function testaLogin(){
+  var emailLogin = getElementById('email').value;
+  var passwordLogin = getElementById('password').value;
+  const db = require('./database/db')
+  const Database = require('./database/db')
+  const query = `
+    SELECT email,senha
+    FROM DIARISTA
+    WHERE EXISTS(
+      email = ${emailLogin}
+      AND senha >= ${passwordLogin}
+    )
+    `
 }
 
 
