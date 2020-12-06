@@ -11,6 +11,8 @@ function pageLanding(req, res) {
 async function pagefeedCliente(req, res) {
     const filters = req.query
 
+
+
     if (!filters.weekday || (!filters.tempo_de || !filters.tempo_ate)) {
         //return res.render("feedCliente.html", { filters, weekdays })
         return res.render('feedCliente.html', { filters, weekdays })
@@ -40,14 +42,25 @@ async function pagefeedCliente(req, res) {
     )
     `
 
+    const queryIdCliente = `SELECT MAX(id), NOME FROM CLIENTE`
+
     //CASO HAJA ERRO NA HORA DA CONSULTA DO BANCO DE DADOS
     try {
         const db = await Database
 
         const Servicos = await db.all(query)
+
+        const ClienteObject = await db.all(queryIdCliente)
+
+        const Cliente = Object.values(ClienteObject[0]);
+
+
+
+        console.log("Id cliente " + Cliente)
+
         console.log(Servicos)
 
-        return res.render('feedCliente.html', { Servicos, filters, weekdays })
+        return res.render('feedCliente.html', { Servicos, filters, weekdays, Cliente })
             //return res.render('feedCliente.html')
     } catch (error) {
         console.log(error)
@@ -67,8 +80,7 @@ function pageLogin(req, res) {
 
 async function pageServico(req, res) {
 
-    let query = `
-            SELECT MAX(id) FROM DIARISTA`
+    let query = ` SELECT MAX(id) FROM DIARISTA`
 
     try {
         const db = await Database
