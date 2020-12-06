@@ -11,7 +11,7 @@ module.exports = async function(db, { disponibilidadeValor, classScheduleValues 
     ) VALUES (
         "${disponibilidadeValor.valor}",
         "${disponibilidadeValor.bio}",
-        "${diarista_id}"
+        "${disponibilidadeValor.idDiarista}"
     );
     `)
     const disponibilidade_id = insertedDisponibilidade.lastID;

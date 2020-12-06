@@ -31,18 +31,28 @@
 
             <div class="header-content">
 
-                {%for id in idDiarista %}
-                <strong>Seja bem-vindo(a) Diarista de id {{id["MAX(id)"]}} </strong>
+
+                <strong>Seja bem-vindo(a):  </strong>
+
+
                 <p>O primeiro passo, é preencher esse formulário de inscrição</p>
-                {%endfor%}
+
             </div>
         </header>
 
         <main>
-            <form action="/save-servico" id="create-class">
+            <form action="/save-servico" id="create-class" method="POST">
 
                 <fieldset>
+
+
                     <legend>Cadastrar Serviço</legend>
+
+                    <div class="input-block">
+                        <label for="diaristaID">Diarista de id: </label>
+                        <input name="idDiarista" id="idDiarista" readonly>
+                    </div>
+
                     <div class="input-block">
                         <label for="Valor">Valor</label>
                         <input name="Valor" id="Valor" required>
@@ -93,6 +103,7 @@
             </form>
 
             <footer>
+
                 <p>
                     <img src="/images/icons/warning.svg" alt="Aviso importante"> Importante! <br> Preencha todos os dados
                 </p>
@@ -103,8 +114,15 @@
 
 
     <script>
+        var id = "{{ id }}";
+        console.log("NAME " + id);
+
+        document.getElementById("idDiarista").value = id;
+
+
         function mostraIdDiarista(value) {
             console.log(value);
+
         }
     </script>
 

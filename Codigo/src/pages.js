@@ -20,7 +20,8 @@ async function pagefeedCliente(req, res) {
     const tempo_de = convertHoursToMinutes(filters.tempo_de)
     const tempo_ate = convertHoursToMinutes(filters.tempo_ate)
 
-    // console.log(filters.weekday)
+    console.log(filters.weekday)
+        //filters.weekday = 1;
     console.log(tempo_de);
     console.log(tempo_ate);
 
@@ -64,19 +65,35 @@ function pageLogin(req, res) {
     return res.render("login.ejs")
 }
 
-function pageServico(req, res) {
+async function pageServico(req, res) {
 
-    return res.render("CadastrarServico.html")
-}
+    let query = `
+            SELECT MAX(id) FROM DIARISTA`
 
-async function saveSerivo(req, res) {
-
-
-    const disponibilidadeValor = {
-        valor: req.body.valor,
-        bio: req.body.descricao
+    try {
+        const db = await Database
+        const idDiarista = await db.all(query)
+            //console.log(idDiarista)
+            //idDiarista = JSON.stringify(idDiarista)
+        const id = Object.values(idDiarista[0]);
+        console.log(id);
+        return res.render("CadastrarServico.html", { id, weekdays })
+    } catch (error) {
+        console.log(error)
     }
 
+    return res.render("CadastrarServico.html", { id, weekdays })
+}
+
+async function saveServivo(req, res) {
+    console.log("Entrou no saveServico")
+
+    const cadastraServico = require('./database/createServico')
+    const disponibilidadeValor = {
+        idDiarista: req.body.idDiarista,
+        valor: req.body.Valor,
+        bio: req.body.Descricao
+    }
 
 
     const classScheduleValues = req.body.weekday.map((weekday, index) => {
@@ -89,7 +106,7 @@ async function saveSerivo(req, res) {
 
     try {
         const db = await Database
-        await cadastraDiarista(db, { idDiarista, disponibilidadeValor, classScheduleValues })
+        await cadastraServico(db, { disponibilidadeValor, classScheduleValues })
 
         let queryString = "?weekday=" + req.body.weekday[0]
         queryString = "?time=" + req.body.time_from[0]
@@ -135,23 +152,10 @@ async function saveCadastro(req, res) {
             const db = await Database
             await cadastraDiarista(db, { cadastroValor, logadrouroValor })
 
-            let query = `
-            SELECT MAX(id) FROM DIARISTA`
+            return res.redirect("/CadastrarServico")
+                //pageServico(req, res, id);
+                //return res.render("CadastrarServico.html", { id, weekdays })
 
-            try {
-
-                const idDiarista = await db.all(query)
-                console.log(idDiarista)
-                    //idDiarista = JSON.stringify(idDiarista)
-                const teste = JSON.stringify(idDiarista);
-                console.log(teste);
-
-
-                //return res.redirect("/feedCliente" + queryString)
-                return res.render("CadastrarServico.html", { idDiarista, weekdays })
-            } catch (error) {
-                console.log(error)
-            }
         } catch (error) {
             console.log(error)
         }
@@ -179,6 +183,6 @@ module.exports = {
     pageLogin,
 
 
-    saveSerivo,
+    saveServivo,
     saveCadastro
 }

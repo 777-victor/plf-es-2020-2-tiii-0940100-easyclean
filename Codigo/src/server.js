@@ -9,7 +9,7 @@ const {
     saveCadastro,
     pageServico,
     pageLogin,
-    saveSerivo
+    saveServivo
 } = require('./pages')
 
 //nunjucks
@@ -32,6 +32,6 @@ server.use(express.static("public"))
     .get("/CadastrarServico", pageServico)
 
 .post("/save-cadastro", saveCadastro)
-    .post("/save-servico", saveSerivo)
+    .post("/save-servico", saveServivo)
 
 .listen(5500)
