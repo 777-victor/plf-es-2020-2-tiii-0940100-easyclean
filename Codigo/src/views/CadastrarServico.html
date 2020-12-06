@@ -13,9 +13,7 @@
     <link rel="shortcut icon" href="images/celularEstalando.png">
     <script src="/scripts/addField.js" defer></script>
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&amp;family=Poppins:wght@400;600&amp;display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&amp;family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet">
 
 
 </head>
@@ -32,13 +30,16 @@
             </div>
 
             <div class="header-content">
-                <strong>Seja bem-vindo(a) Diarista</strong>
+
+                {%for id in idDiarista %}
+                <strong>Seja bem-vindo(a) Diarista de id {{id["MAX(id)"]}} </strong>
                 <p>O primeiro passo, é preencher esse formulário de inscrição</p>
+                {%endfor%}
             </div>
         </header>
 
         <main>
-            <form action="" id="create-class">
+            <form action="/save-servico" id="create-class">
 
                 <fieldset>
                     <legend>Cadastrar Serviço</legend>
@@ -93,13 +94,19 @@
 
             <footer>
                 <p>
-                    <img src="/images/icons/warning.svg" alt="Aviso importante"> Importante! <br> Preencha todos os
-                    dados
+                    <img src="/images/icons/warning.svg" alt="Aviso importante"> Importante! <br> Preencha todos os dados
                 </p>
                 <button type="submit" form="create-class">Salvar cadastro</button>
             </footer>
         </main>
     </div>
+
+
+    <script>
+        function mostraIdDiarista(value) {
+            console.log(value);
+        }
+    </script>
 
 
 </body>

@@ -1,5 +1,4 @@
-module.exports = async function(db, { cadastroValor, logadrouroValor, disponibilidadeValor, classScheduleValues }) {
-
+module.exports = async function(db, { cadastroValor, logadrouroValor }) {
 
     //INSERIR DADOS NA TABELA ENDERECO
     const insertedLogradouro = await db.run(`
@@ -40,9 +39,9 @@ module.exports = async function(db, { cadastroValor, logadrouroValor, disponibil
     );
     `)
 
+    const diarista_id = insertedDiarista.lastID
 
-
-    const insertUsers= await db.run(`
+    const insertUsers = await db.run(`
         INSERT INTO USERS(
             emailuser,
             senhauser
@@ -52,8 +51,4 @@ module.exports = async function(db, { cadastroValor, logadrouroValor, disponibil
         );
 
         `)
-        
-    //AQUI VOU EXECUTAR TODOS OS DB.RUNS() DAS CLASS_SCHEDULES
-    await Promise.all()
-
 }
