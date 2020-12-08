@@ -27,7 +27,7 @@
 }
 
 .page-header .top-bar-container > img {
-    height: 3rem;
+    height: 15rem;
 }
 
 .page-header .header-content {
@@ -74,9 +74,8 @@
 
     }
 
-    .page-header .header-content strong {
+ /*    .page-header .header-content strong {
         max-width: 350px;
-    }
-
+    } */
 
 }
