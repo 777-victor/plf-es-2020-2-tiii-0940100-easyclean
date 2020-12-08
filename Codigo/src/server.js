@@ -5,6 +5,7 @@ const server = express()
 const {
     pageLanding,
     pagefeedCliente,
+    pagefeedDiarista,   
     pageCadastro,
     saveCadastro,
     pageServico,
@@ -27,11 +28,12 @@ server
 server.use(express.static("public"))
     .get("/", pageLanding)
     .get("/feedCliente", pagefeedCliente)
+    .get("/feedDiarista", pagefeedDiarista)
     .get("/Cadastro", pageCadastro)
     .get("/login", pageLogin)
     .get("/CadastrarServico", pageServico)
 
-.post("/save-cadastro", saveCadastro)
+    .post("/save-cadastro", saveCadastro)
     .post("/save-servico", saveServivo)
 
 .listen(5500)

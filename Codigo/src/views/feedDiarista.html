@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#8257E5">
+    <title>EasyClean</title>
+    <link rel="shortcut icon" href="images/celularEstalando.png">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/partials/header.css">
+    <link rel="stylesheet" href="styles/partials/page-study.css">
+    <link rel="stylesheet" href="styles/partials/forms.css">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&amp;family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body id="page-study">
+
+    <div id="container">
+        <header class="page-header">
+            <div class="top-bar-container">
+                <a href="/">
+                    <img src="images/icons/back.svg" alt="Voltar">
+                </a>
+                <img src="images/logoSemFundo.png" alt="Proffy">
+            </div>
+
+
+            <div class="header-content">
+                <strong>Bem vindo(a) diarista! Aqui estão seus serviços:
+                </strong> <br>
+                <form action="/feedCliente" id="search-teachers">
+                    <div class="select-block">
+                        <label for="weekday">Dia da Semana</label>
+                        <select name="weekday" id="weekday">
+                            <option value=""disabled="" hidden>Selecione uma opção</option>
+                            {%for weekday in weekdays %}
+                            <option value="{{loop.index0}}" {{ "selected" if filters.weekday == loop.index0}}>
+                                {{weekday}}
+                            </option>
+                            {%endfor%}
+                        </select>
+                    </div>
+                    <div class="select-block">
+                        <label for="tempo_de">De</label>
+                        <input name="tempo_de" id="tempo_de" type="time" value="{{filters.tempo_de}}">
+                    </div>
+                    <div class="select-block">
+                        <label for="tempo_ate">Ate</label>
+                        <input name="tempo_ate" id="tempo_ate" type="time" value="{{filters.tempo_ate}}">
+                    </div>
+                    <button type="submit">Filtrar</button>
+                </form>
+            </div>
+        </header>
+
+        <main>
+
+            {% for Servico in Servicos %}
+
+            <article class="teacher-item">
+                <header>
+                    <img src="{{Servico.IMG_DIARISTA}}">
+                    <div>
+                        <strong>{{Servico.NOME}}</strong>
+                    </div>
+                </header>
+                <p>{{Servico.DESCRICAO}}</p>
+                <p>DE {{Servico.TEMPO_DE}}</p>
+                <p>ATE {{Servico.TEMPO_ATE}}</p>
+                <footer>
+                    <p>Preço/Hora <strong>{{Servico["VALOR"]}}</strong></p>
+                    <a href="https://api.whatsapp.com/send?1=pt_BR&phone=55{{Servico.TELEFONE}}&text=Tenho interesse no seu servico {{Servico.name}}" class="button" target="_blank"><img src="images/icons/whatsapp.svg" alt="WhatsApp">Entrar em contato</button>
+
+                    </a>
+                    <a data-toggle="modal" data-target="#exampleModal" data-whatever="@getNumsei"><img src="images/icons/whatsapp.svg" alt="WhatsApp">contratar</button>
+
+                    </a>
+                </footer>
+
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                            </div>
+                            <div class="modal-body">
+
+                                <form>
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Diarista:</label>
+
+                                        <input type="text" class="form-control" id="recipient-name" value="{{Servico.NOME}}" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="message-text" class="col-form-label">Valor:</label>
+
+                                        <input type="text" class="form-control" id="message-text" value="{{Servico.VALOR}}" disabled>
+                                    </div>
+
+                                    <div class="input-block">
+                                        <label for="idCliente">Cliente de id: </label>
+                                        <input name="idCliente" id="idCliente" readonly>
+                                    </div>
+
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                <button type="button" class="btn btn-primary">Confirmar Contrato</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            {% endfor %}
+        </main>
+
+
+    </div>
+
+    <script>
+        var id = "{{ Cliente[0] }}";
+
+        var nome = "{{Cliente[1]}} ";
+
+        console.log("Id Cliente " + id + "Nome: " + nome);
+
+        document.getElementById("idCliente").value = nome + "   id:" + id;
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+</html>

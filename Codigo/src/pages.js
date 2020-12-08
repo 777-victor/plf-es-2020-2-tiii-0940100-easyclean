@@ -7,7 +7,9 @@ const { weekdays, convertHoursToMinutes } = require('./utils/format')
 function pageLanding(req, res) {
     return res.render("index.html")
 }
-
+function pagefeedDiarista(req, res) {
+    return res.render("feedDiarista.html")
+} 
 async function pagefeedCliente(req, res) {
     const filters = req.query
 
@@ -190,11 +192,10 @@ module.exports = {
     pageLanding,
     pageLogin,
     pagefeedCliente,
+    pagefeedDiarista,
     pageCadastro,
     pageServico,
     pageLogin,
-
-
     saveServivo,
     saveCadastro
 }
