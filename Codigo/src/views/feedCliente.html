@@ -25,6 +25,8 @@
                 </a>
                 <img src="images/logoSemFundo.png" alt="Proffy">
             </div>
+
+
             <div class="header-content">
                 <strong>Esses são os profissionais EasyClean</strong>
                 <form action="/feedCliente" id="search-teachers">
@@ -97,8 +99,14 @@
                                     <div class="form-group">
                                         <label for="message-text" class="col-form-label">Valor:</label>
 
-                                        <input type="text" class="form-control" id="message-text" value="{{Servico[" VALOR "]}}" disabled>
+                                        <input type="text" class="form-control" id="message-text" value="{{Servico.VALOR}}" disabled>
                                     </div>
+
+                                    <div class="input-block">
+                                        <label for="idCliente">Cliente de id: </label>
+                                        <input name="idCliente" id="idCliente" readonly>
+                                    </div>
+
                                 </form>
                             </div>
                             <div class="modal-footer">
@@ -115,6 +123,16 @@
 
 
     </div>
+
+    <script>
+        var id = "{{ Cliente[0] }}";
+
+        var nome = "{{Cliente[1]}} ";
+
+        console.log("Id Cliente " + id + "Nome: " + nome);
+
+        document.getElementById("idCliente").value = nome + "   id:" + id;
+    </script>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
