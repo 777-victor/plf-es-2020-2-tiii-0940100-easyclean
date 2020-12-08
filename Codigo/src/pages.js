@@ -11,8 +11,6 @@ function pageLanding(req, res) {
 async function pagefeedCliente(req, res) {
     const filters = req.query
 
-
-
     if (!filters.weekday || (!filters.tempo_de || !filters.tempo_ate)) {
         //return res.render("feedCliente.html", { filters, weekdays })
         return res.render('feedCliente.html', { filters, weekdays })
@@ -22,8 +20,7 @@ async function pagefeedCliente(req, res) {
     const tempo_de = convertHoursToMinutes(filters.tempo_de)
     const tempo_ate = convertHoursToMinutes(filters.tempo_ate)
 
-    console.log(filters.weekday)
-        //filters.weekday = 1;
+    // console.log(filters.weekday)
     console.log(tempo_de);
     console.log(tempo_ate);
 
@@ -42,25 +39,14 @@ async function pagefeedCliente(req, res) {
     )
     `
 
-    const queryIdCliente = `SELECT MAX(id), NOME FROM CLIENTE`
-
     //CASO HAJA ERRO NA HORA DA CONSULTA DO BANCO DE DADOS
     try {
         const db = await Database
 
         const Servicos = await db.all(query)
-
-        const ClienteObject = await db.all(queryIdCliente)
-
-        const Cliente = Object.values(ClienteObject[0]);
-
-
-
-        console.log("Id cliente " + Cliente)
-
         console.log(Servicos)
 
-        return res.render('feedCliente.html', { Servicos, filters, weekdays, Cliente })
+        return res.render('feedCliente.html', { Servicos, filters, weekdays })
             //return res.render('feedCliente.html')
     } catch (error) {
         console.log(error)
@@ -75,61 +61,21 @@ function pageCadastro(req, res) {
 }
 
 function pageLogin(req, res) {
-    return res.render("login.ejs")
+    //SE NÃO, MOSTRAR A PÁGINA
+
+
+    return res.render("login.html")
 }
 
-async function pageServico(req, res) {
+function checkLogin(req, res) {
 
-    let query = ` SELECT MAX(id) FROM DIARISTA`
-
-    try {
-        const db = await Database
-        const idDiarista = await db.all(query)
-            //console.log(idDiarista)
-            //idDiarista = JSON.stringify(idDiarista)
-        const id = Object.values(idDiarista[0]);
-        console.log(id);
-        return res.render("CadastrarServico.html", { id, weekdays })
-    } catch (error) {
-        console.log(error)
-    }
-
-    return res.render("CadastrarServico.html", { id, weekdays })
-}
-
-async function saveServivo(req, res) {
-    console.log("Entrou no saveServico")
-
-    const cadastraServico = require('./database/createServico')
-    const disponibilidadeValor = {
-        idDiarista: req.body.idDiarista,
-        valor: req.body.Valor,
-        bio: req.body.Descricao
-    }
+    // stored data from the register-form
+    const filters = req.query
+        // entered data from the login-form
+    console.log(filters.user)
+    console.log(filters.senha)
 
 
-    const classScheduleValues = req.body.weekday.map((weekday, index) => {
-        return {
-            weekday,
-            time_from: convertHoursToMinutes(req.body.time_from[index]),
-            time_to: convertHoursToMinutes(req.body.time_to[index])
-        }
-    })
-
-    try {
-        const db = await Database
-        await cadastraServico(db, { disponibilidadeValor, classScheduleValues })
-
-        let queryString = "?weekday=" + req.body.weekday[0]
-        queryString = "?time=" + req.body.time_from[0]
-
-        //return res.redirect("/feedCliente" + queryString)
-        return res.redirect("/feedCliente")
-    } catch (error) {
-        console.log(error)
-    }
-
-    return res.render("CadastrarServico.html")
 }
 
 
@@ -148,12 +94,27 @@ async function saveCadastro(req, res) {
     }
 
     const logadrouroValor = {
-            cep: req.body.cep,
-            rua: req.body.rua,
-            bairro: req.body.bairro,
-            cidade: req.body.cidade,
-            estado: req.body.uf
-        }
+        cep: req.body.cep,
+        rua: req.body.rua,
+        bairro: req.body.bairro,
+        cidade: req.body.cidade,
+        estado: req.body.uf
+    }
+
+    const disponibilidadeValor = {
+        valor: req.body.valor,
+        bio: req.body.descricao
+    }
+
+
+
+    const classScheduleValues = req.body.weekday.map((weekday, index) => {
+            return {
+                weekday,
+                time_from: convertHoursToMinutes(req.body.time_from[index]),
+                time_to: convertHoursToMinutes(req.body.time_to[index])
+            }
+        })
         //console.log("TESTE");
         //console.log(weekday);
         //console.log(convertHoursToMinutes(req.body.time_from[0]));
@@ -162,12 +123,13 @@ async function saveCadastro(req, res) {
 
         try {
             const db = await Database
-            await cadastraDiarista(db, { cadastroValor, logadrouroValor })
+            await cadastraDiarista(db, { cadastroValor, logadrouroValor, disponibilidadeValor, classScheduleValues })
 
-            return res.redirect("/CadastrarServico")
-                //pageServico(req, res, id);
-                //return res.render("CadastrarServico.html", { id, weekdays })
+            let queryString = "?weekday=" + req.body.weekday[0]
+            queryString = "?time=" + req.body.time_from[0]
 
+            //return res.redirect("/feedCliente" + queryString)
+            return res.redirect("/feedCliente")
         } catch (error) {
             console.log(error)
         }
@@ -186,15 +148,15 @@ async function saveCadastro(req, res) {
 }
 
 
+
+
+
+
 module.exports = {
     pageLanding,
     pageLogin,
     pagefeedCliente,
     pageCadastro,
-    pageServico,
-    pageLogin,
-
-
-    saveServivo,
+    checkLogin,
     saveCadastro
 }

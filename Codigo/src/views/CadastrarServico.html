@@ -30,29 +30,16 @@
             </div>
 
             <div class="header-content">
-
-
-                <strong>Seja bem-vindo(a):  </strong>
-
-
+                <strong>Seja bem-vindo(a) Diarista</strong>
                 <p>O primeiro passo, é preencher esse formulário de inscrição</p>
-
             </div>
         </header>
 
         <main>
-            <form action="/save-servico" id="create-class" method="POST">
+            <form action="" id="create-class">
 
                 <fieldset>
-
-
-                    <legend>Cadastrar Serviço</legend>
-
-                    <div class="input-block">
-                        <label for="diaristaID">Diarista de id: </label>
-                        <input name="idDiarista" id="idDiarista" readonly>
-                    </div>
-
+                    <legend>Cadastrar Servico</legend>
                     <div class="input-block">
                         <label for="Valor">Valor</label>
                         <input name="Valor" id="Valor" required>
@@ -60,9 +47,9 @@
 
                 </fieldset>
                 <fieldset>
-                    <legend>Sobre o serviço</legend>
+                    <legend>Sobre o servico</legend>
                     <div class="textarea-block">
-                        <label for="Descricao">Descriçao</label>
+                        <label for="Descricao">Descricao</label>
                         <textarea name="Descricao" id="Descricao" required></textarea>
                     </div>
                 </fieldset>
@@ -79,9 +66,9 @@
                             <select name="weekday[]" required>
                                 <option value="">Selecione uma opção</option>
                                 {%for weekday in weekdays %}
-                                <option value="{{loop.index0}}">
-                                    {{weekday}}
-                                </option>
+                                    <option value="{{loop.index0}}">
+                                        {{weekday}}
+                                    </option>
                                 {%endfor%}
                             </select>
                         </div>
@@ -103,7 +90,6 @@
             </form>
 
             <footer>
-
                 <p>
                     <img src="/images/icons/warning.svg" alt="Aviso importante"> Importante! <br> Preencha todos os dados
                 </p>
@@ -111,14 +97,6 @@
             </footer>
         </main>
     </div>
-
-
-    <script>
-        var id = "{{ id }}";
-        console.log("Id diarista " + id);
-
-        document.getElementById("idDiarista").value = id;
-    </script>
 
 
 </body>

@@ -12,7 +12,6 @@ function execute(db) {
       NOME TEXT, 
       DATA_CADASTRO datetime default current_timestamp,
       EMAIL TEXT,
-      SENHA TEXT,
       IMG_DIARISTA TEXT,
       TELEFONE TEXT,
       LOGRADOURO_ID INTEGER
@@ -45,7 +44,6 @@ function execute(db) {
       CPF TEXT,
       NOME TEXT,
       EMAIL TEXT,
-      SENHA TEXT,
       IMG_CLIENTE TEXT,
       TELEFONE TEXT,
       LOGRADOURO_ID INTEGER

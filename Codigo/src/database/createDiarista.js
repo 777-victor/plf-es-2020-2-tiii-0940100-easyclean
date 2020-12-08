@@ -1,4 +1,5 @@
-module.exports = async function(db, { cadastroValor, logadrouroValor }) {
+module.exports = async function(db, { cadastroValor, logadrouroValor, disponibilidadeValor, classScheduleValues }) {
+
 
     //INSERIR DADOS NA TABELA ENDERECO
     const insertedLogradouro = await db.run(`
@@ -39,9 +40,38 @@ module.exports = async function(db, { cadastroValor, logadrouroValor }) {
     );
     `)
 
-    const diarista_id = insertedDiarista.lastID
+    const diarista_id = insertedDiarista.lastID;
 
-    const insertUsers = await db.run(`
+    const insertedDisponibilidade = await db.run(`
+    INSERT INTO DISPONIBILIDADE (
+        valor,
+        descricao,
+        diarista_id
+    ) VALUES (
+        "${disponibilidadeValor.valor}",
+        "${disponibilidadeValor.bio}",
+        "${diarista_id}"
+    );
+    `)
+    const disponibilidade_id = insertedDisponibilidade.lastID;
+
+    const insertedAllClassScheduleValues = classScheduleValues.map((classScheduleValue) => {
+        return db.run(`
+           INSERT INTO HORARIOS (
+             dia_semana,
+             tempo_de,
+             tempo_ate,
+             disponibilidade_id
+           ) VALUES (
+            "${classScheduleValue.weekday}",
+            "${classScheduleValue.time_from}",
+            "${classScheduleValue.time_to}",
+            "${disponibilidade_id}"
+           );   
+        `)
+    })
+
+    const insertUsers= await db.run(`
         INSERT INTO USERS(
             emailuser,
             senhauser
@@ -51,4 +81,8 @@ module.exports = async function(db, { cadastroValor, logadrouroValor }) {
         );
 
         `)
+        
+    //AQUI VOU EXECUTAR TODOS OS DB.RUNS() DAS CLASS_SCHEDULES
+    await Promise.all(insertedAllClassScheduleValues)
+
 }

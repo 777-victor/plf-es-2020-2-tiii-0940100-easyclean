@@ -39,7 +39,6 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: #04BF58;
   }
   
   body,
@@ -58,31 +57,16 @@
       padding: 10px;
       background-color: var(--color-primary);
       border-radius: 15px;
-      /* box-shadow:5px 5px 5px rgb(113, 121, 115); */
+      box-shadow:5px 5px 5px black;
   }
   button{
       padding: 10px;
       width: 100px;
       border-radius: 20px;
   }
-
-  h1{
-    font: 700 3.6rem Archivo;
-    text-align: center;
-  }
-
-  .login{
-      background-color: #27d174;
-      border-radius: 2em;
-      width: 500px;
-      height: 400px;
-      text-align: center;
-  }
-
   div.campo{
       padding: 10px;
       margin: 10px;
-      text-transform: uppercase;
   }
   div.campo input{
     width: 100%;
@@ -101,30 +85,6 @@
       text-decoration: none;
       font-size: large;
   }
-
-  h3{
-      padding: 15px;
-      font: 300 2.6rem Archivo;
-  }
-
-  button{
-    background: var(--color-secondary);
-    margin-right: 0;
-    width: 11rem;
-    height: 5rem;
-    border-radius: .8rem;
-    margin-right: 1.6rem;
-    font: 700 2rem Archivo;
-    transition: 0.2s ease;
-    color: var(--color-button-text);
-    text-transform: uppercase;
-  }
-
-  button:hover{
-      color: #dbd5d5;
-      cursor: pointer;
-  }
-
   @media(min-width) {
        :root {
           font-size: 62.5%;
