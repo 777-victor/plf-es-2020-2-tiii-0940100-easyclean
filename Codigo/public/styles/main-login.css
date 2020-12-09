@@ -35,7 +35,7 @@ body {
 }
 
 body {
-    background-color: var(--color-background);
+    background-color: #f1a33e;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -63,10 +63,16 @@ button{
     padding: 10px;
     width: 100px;
     border-radius: 20px;
+    background-color: #9C98A6;
+    font: arial;
+    font-size: large;
 }
 div.campo{
     padding: 10px;
     margin: 10px;
+    font-style: arial;
+    font-size: large;
+    color: var(--color-text-base);
 }
 div.campo input{
   width: 100%;
@@ -85,6 +91,7 @@ a{
     text-decoration: none;
     font-size: large;
 }
+
 @media(min-width) {
      :root {
         font-size: 62.5%;
