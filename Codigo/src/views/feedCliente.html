@@ -71,10 +71,8 @@
                 -->
                 <footer>
                     <p>Preço/Hora <strong>{{Servico["VALOR"]}}</strong></p>
-                    <a href="https://api.whatsapp.com/send?1=pt_BR&phone=55{{Servico.TELEFONE}}&text=Tenho interesse no seu servico {{Servico.name}}" class="button" target="_blank"><img src="images/icons/whatsapp.svg" alt="WhatsApp">Entrar em contato</button>
 
-                    </a>
-                    <a onclick="AbreModal(`{{Servico.NOME}}`, `{{Servico.VALOR}}`, `{{Servico.ID}}`, `{{Servico.DISPONIBILIDADE_ID}}`, `{{Servico.DIARISTA_ID}}`)" class="button" data-whatever="@getNumsei"><img src="images/icons/whatsapp.svg" alt="WhatsApp">contratar</button>
+                    <a onclick="AbreModal(`{{Servico.NOME}}`, `{{Servico.VALOR}}`, `{{Servico.ID}}`, `{{Servico.DISPONIBILIDADE_ID}}`, `{{Servico.DIARISTA_ID}}`, `{{Servico.TELEFONE}}`)" class="button" data-whatever="@getNumsei"><img src="images/icons/whatsapp.svg" alt="WhatsApp">contratar</button>
 
                     </a>
                 </footer>
@@ -124,7 +122,11 @@
                             </div>
 
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">Gravar Contrato</button>
+                                <div id="contato">
+
+                                </div>
+
+                                <button type="submit" class="btn btn-success">Gravar Contrato</button>
                             </div>
                         </form>
 
@@ -142,11 +144,9 @@
         var idCliente = "{{ Cliente[0] }}";
         var nomeCliente = "{{Cliente[1]}}";
 
-        console.log("Id Cliente " + id + "Nome: " + nome);
-
-
+        //console.log("Id Cliente " + idCliente + "Nome: " + nomeCliente);
         //document.getElementById("idCliente").value = nome + "   id:" + id;
-        function AbreModal(nome, valor, id, servicoId, diaristaId) {
+        function AbreModal(nome, valor, id, servicoId, diaristaId, telefoneDiarista) {
 
             $("#nomeDiarista").val(nome);
             $("#valorDiarista").val(valor);
@@ -158,6 +158,11 @@
             $("#myModal").modal({
                 show: true
             });
+
+            $("#contato").append(`
+   <a href="https://api.whatsapp.com/send?1=pt_BR&phone=55${telefoneDiarista}&text=Tenho interesse no seu servico ${nome}" class="btn btn-info" target="_blank"><img src="images/icons/whatsapp.svg" alt="WhatsApp">Entrar em contato</button>
+      </a>
+`)
 
 
             //$("#idCliente").value(id)
