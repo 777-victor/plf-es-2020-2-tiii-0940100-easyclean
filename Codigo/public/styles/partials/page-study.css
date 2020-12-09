@@ -135,8 +135,19 @@
     margin: 12rem auto;
     text-align: center;
 }
-
-
+.btn.btn-success{
+    font-size: large !important;
+    background-color: #e98e17;
+}
+div.modal-content{
+    border: 100px !important;
+    background-color: #34e282;
+    font-size: large;
+    box-shadow: 2px 2px 2px black;
+}
+.form-control{
+    font-size: 2rem !important;
+}
 @media (min-width:700px) {
     #page-study #container {
         max-width: 100vw;
