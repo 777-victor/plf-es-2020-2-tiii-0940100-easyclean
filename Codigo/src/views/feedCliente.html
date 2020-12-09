@@ -66,72 +66,102 @@
                     </div>
                 </header>
                 <p>{{Servico.DESCRICAO}}</p>
-                <p>DE {{Servico.TEMPO_DE}}</p>
+                <!-- <p>DE {{Servico.TEMPO_DE}}</p>
                 <p>ATE {{Servico.TEMPO_ATE}}</p>
+                -->
                 <footer>
                     <p>Preço/Hora <strong>{{Servico["VALOR"]}}</strong></p>
                     <a href="https://api.whatsapp.com/send?1=pt_BR&phone=55{{Servico.TELEFONE}}&text=Tenho interesse no seu servico {{Servico.name}}" class="button" target="_blank"><img src="images/icons/whatsapp.svg" alt="WhatsApp">Entrar em contato</button>
 
                     </a>
-                    <a data-toggle="modal" data-target="#exampleModal" data-whatever="@getNumsei"><img src="images/icons/whatsapp.svg" alt="WhatsApp">contratar</button>
+                    <a onclick="AbreModal(`{{Servico.NOME}}`, `{{Servico.VALOR}}`, `{{Servico.ID}}`, `{{Servico.DISPONIBILIDADE_ID}}`, `{{Servico.DIARISTA_ID}}`)" class="button" data-whatever="@getNumsei"><img src="images/icons/whatsapp.svg" alt="WhatsApp">contratar</button>
 
                     </a>
                 </footer>
 
-
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-                            </div>
-                            <div class="modal-body">
-
-                                <form>
-                                    <div class="form-group">
-                                        <label for="recipient-name" class="col-form-label">Diarista:</label>
-
-                                        <input type="text" class="form-control" id="recipient-name" value="{{Servico.NOME}}" disabled>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="message-text" class="col-form-label">Valor:</label>
-
-                                        <input type="text" class="form-control" id="message-text" value="{{Servico.VALOR}}" disabled>
-                                    </div>
-
-                                    <div class="input-block">
-                                        <label for="idCliente">Cliente de id: </label>
-                                        <input name="idCliente" id="idCliente" readonly>
-                                    </div>
-
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                <button type="button" class="btn btn-primary">Confirmar Contrato</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </article>
 
+
             {% endfor %}
+
+            <div id="myModal" class="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Informações do contrato</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                             </button>
+                        </div>
+                        <form action="/save-contrato" id="salva-contrato" method="POST">
+                            <div class="modal-body">
+
+                                <div class="form-group" hidden>
+                                    <label for="idCliente" class="col-form-label">Cliente: </label>
+                                    <input type="text" class="form-control" name="idCliente" id="idCliente" readonly>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="nomeDiarista" class="col-form-label">Diarista:</label>
+                                    <input type="text" class="form-control" name="nomeDiarista" id="nomeDiarista" readonly>
+                                </div>
+
+                                <div class="form-group" hidden>
+                                    <label for="idDiarista" class="col-form-label">Diarista Id:</label>
+                                    <input type="text" class="form-control" name="idDiarista" id="idDiarista" readonly>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="valorDiarista" class="col-form-label">Valor:</label>
+                                    <input type="text" class="form-control" name="valorDiarista" id="valorDiarista" readonly>
+                                </div>
+
+                                <div class="form-group" hidden>
+                                    <label for="idServico" class="col-form-label">Servico de id:</label>
+
+                                    <input type="text" class="form-control" name="idServico" id="idServico" readonly>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Gravar Contrato</button>
+                            </div>
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+
         </main>
 
 
     </div>
 
     <script>
-        var id = "{{ Cliente[0] }}";
-
-        var nome = "{{Cliente[1]}} ";
+        var idCliente = "{{ Cliente[0] }}";
+        var nomeCliente = "{{Cliente[1]}}";
 
         console.log("Id Cliente " + id + "Nome: " + nome);
 
-        document.getElementById("idCliente").value = nome + "   id:" + id;
+
+        //document.getElementById("idCliente").value = nome + "   id:" + id;
+        function AbreModal(nome, valor, id, servicoId, diaristaId) {
+
+            $("#nomeDiarista").val(nome);
+            $("#valorDiarista").val(valor);
+            $("#idServico").val(servicoId);
+            $("#idDiarista").val(diaristaId);
+            $("#idCliente").val(idCliente);
+
+            //console.log(nome + valor + " " + id);
+            $("#myModal").modal({
+                show: true
+            });
+
+
+            //$("#idCliente").value(id)
+        }
     </script>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

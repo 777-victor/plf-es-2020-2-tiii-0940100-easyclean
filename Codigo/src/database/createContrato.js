@@ -1,44 +1,20 @@
-module.exports = async function(db, { cadastroValor, logadrouroValor }) {
+module.exports = async function(db, { dados }) {
     //INSERIR DADOS NA TABELA DE EMPREGADAS
 
 
-    const insertedLogradouro = await db.run(`
-    INSERT INTO LOGRADOURO (
-        cep,
-        rua,
-        bairro,
-        estado,
-        cidade
+    const insertedContrato = await db.run(`
+    INSERT INTO CONTRATO (
+        VALOR,
+        CLIENTE_ID,
+        DIARISTA_ID,
+        DISPONIBILIDADE_ID
     ) VALUES (
-        "${logadrouroValor.cep}",
-        "${logadrouroValor.rua}",
-        "${logadrouroValor.bairro}",
-        "${logadrouroValor.estado}",
-        "${logadrouroValor.cidade}"
+        "${dados.valor}",
+        "${dados.clienteId}",
+        "${dados.diaristaId}",
+        "${dados.disponibilidadeId}"
     );
 `)
-
-    const logradouro_id = insertedLogradouro.lastID
-
-    const insertedCliente = await db.run(`
-        INSERT INTO CLIENTE (
-            nome,
-            cpf,
-            img_cliente,
-            telefone,
-            email,
-            logradouro_id
-        ) VALUES (
-            "${cadastroValor.name}",
-            "${cadastroValor.cpf}",
-            "${cadastroValor.avatar}",
-            "${cadastroValor.whatsapp}",
-            "${cadastroValor.email}",
-            "${logradouro_id}"
-        );
-    `)
-
-
 
 
 

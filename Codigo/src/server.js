@@ -5,12 +5,13 @@ const server = express()
 const {
     pageLanding,
     pagefeedCliente,
-    pagefeedDiarista,   
+    pagefeedDiarista,
     pageCadastro,
     saveCadastro,
     pageServico,
     pageLogin,
-    saveServivo
+    saveServivo,
+    saveContrato
 } = require('./pages')
 
 //nunjucks
@@ -33,7 +34,8 @@ server.use(express.static("public"))
     .get("/login", pageLogin)
     .get("/CadastrarServico", pageServico)
 
-    .post("/save-cadastro", saveCadastro)
+.post("/save-cadastro", saveCadastro)
     .post("/save-servico", saveServivo)
+    .post("/save-contrato", saveContrato)
 
 .listen(5500)

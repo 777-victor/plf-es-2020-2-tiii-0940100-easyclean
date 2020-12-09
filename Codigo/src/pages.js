@@ -1,15 +1,16 @@
 const db = require('./database/db')
 const Database = require('./database/db')
 
-const { weekdays, convertHoursToMinutes } = require('./utils/format')
+const { weekdays, convertHoursToMinutes, convertMinutesToHours } = require('./utils/format')
 
 //FUNCIONALIDADES
 function pageLanding(req, res) {
     return res.render("index.html")
 }
+
 function pagefeedDiarista(req, res) {
     return res.render("feedDiarista.html")
-} 
+}
 async function pagefeedCliente(req, res) {
     const filters = req.query
 
@@ -56,8 +57,9 @@ async function pagefeedCliente(req, res) {
 
         const Cliente = Object.values(ClienteObject[0]);
 
+        //const split = convertMinutesToHours(Servicos[0].tempo_de, 2);
 
-
+        //console.log(split);
         console.log("Id cliente " + Cliente)
 
         console.log(Servicos)
@@ -69,6 +71,8 @@ async function pagefeedCliente(req, res) {
     }
 }
 
+//data-toggle="modal" data-target="#exampleModal"
+
 function pageCadastro(req, res) {
     //SE NÃO, MOSTRAR A PÁGINA
 
@@ -79,6 +83,8 @@ function pageCadastro(req, res) {
 function pageLogin(req, res) {
     return res.render("login.ejs")
 }
+
+
 
 async function pageServico(req, res) {
 
@@ -97,6 +103,32 @@ async function pageServico(req, res) {
     }
 
     return res.render("CadastrarServico.html", { id, weekdays })
+}
+
+async function saveContrato(req, res) {
+    console.log("Entrou no saveContrato");
+
+    const dados = {
+        disponibilidadeId: req.body.idServico,
+        diaristaId: req.body.idDiarista,
+        clienteId: req.body.idCliente,
+        valor: req.body.valorDiarista
+    }
+
+    console.log(dados);
+
+    const cadastraContrato = require('./database/createContrato')
+
+    try {
+        const db = await Database
+        await cadastraContrato(db, { dados })
+            //return res.redirect("/feedCliente" + queryString)
+        return res.redirect("/feedCliente")
+    } catch (error) {
+        console.log(error)
+    }
+
+    return res.render("CadastrarServico.html")
 }
 
 async function saveServivo(req, res) {
@@ -197,5 +229,6 @@ module.exports = {
     pageServico,
     pageLogin,
     saveServivo,
+    saveContrato,
     saveCadastro
 }
