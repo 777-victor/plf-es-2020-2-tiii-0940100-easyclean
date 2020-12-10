@@ -7,7 +7,9 @@ const { weekdays, convertHoursToMinutes, convertMinutesToHours } = require('./ut
 function pageLanding(req, res) {
     return res.render("index.html")
 }
-
+function pageIndicadores(req, res){
+    return res.render("indicadores.html")
+}
 function pagefeedDiarista(req, res) {
     return res.render("feedDiarista.html")
 }
@@ -225,6 +227,7 @@ module.exports = {
     pageLogin,
     pagefeedCliente,
     pagefeedDiarista,
+    pageIndicadores,
     pageCadastro,
     pageServico,
     pageLogin,

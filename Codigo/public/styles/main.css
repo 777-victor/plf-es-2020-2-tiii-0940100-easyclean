@@ -33,7 +33,16 @@
   body {
       height: 100vh;
   }
-  
+  table#indicadores{
+     width: 100vh;
+     height: 50vh;
+     box-shadow: 3px 3px 3px black;
+  }
+  table#indicadores tr td{
+    padding: 10px;
+    background-color: var(--color-text-complement);
+    color: black;
+  }
   body {
       background-color: var(--color-background);
       display: flex;
