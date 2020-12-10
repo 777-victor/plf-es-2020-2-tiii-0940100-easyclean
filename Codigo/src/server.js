@@ -10,6 +10,7 @@ const {
     saveCadastro,
     pageServico,
     pageLogin,
+    pageIndicadores,
     saveServivo,
     saveContrato
 } = require('./pages')
@@ -33,6 +34,7 @@ server.use(express.static("public"))
     .get("/Cadastro", pageCadastro)
     .get("/login", pageLogin)
     .get("/CadastrarServico", pageServico)
+    .get("/indicadores", pageIndicadores)
 
 .post("/save-cadastro", saveCadastro)
     .post("/save-servico", saveServivo)
