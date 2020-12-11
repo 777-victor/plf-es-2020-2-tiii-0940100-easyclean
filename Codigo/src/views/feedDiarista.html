@@ -56,14 +56,19 @@
 
             <article class="teacher-item">
                 <header>
-                    <img src="{{Contrato.IMG_DIARISTA}}">
-                    <div>
-                        <strong>Diarista {{Contrato.NOME}} de id: {{Contrato.DIARISTA_ID}}</strong>
+                    
+                    <div class="strongDiarista">
+                        <img src="{{Contrato.IMG_DIARISTA}}">
+                        
+                        <strong><br>Diarista: {{Contrato.NOME}} <br>ID: {{Contrato.DIARISTA_ID}}</strong>
                     </div>
-                    <div>
-                        <strong>Cliente {{Contrato.NOMECLIENTE}} de id: {{Contrato.CLIENTE_ID}}</strong>
+                    <div class="strongDiarista">
+                        <img src="{{Contrato.IMG_CLIENTE}}">
+                        
+                        <strong><br>Cliente: {{Contrato.NOMECLIENTE}} <br>ID: {{Contrato.CLIENTE_ID}}</strong>
+                        
                     </div>
-                    <img src="{{Contrato.IMG_CLIENTE}}">
+                    
 
                 </header>
 

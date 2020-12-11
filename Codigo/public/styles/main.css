@@ -42,6 +42,12 @@
       box-shadow: 1px 1px 1px black;
 
   }
+  div.strongDiarista{
+      padding: 20px;
+      margin: 0px;
+      border: 1px solid #bab9c0;
+      width: 100vh;
+  }
   table#indicadores{
      width: 100vh;
      height: 50vh;
