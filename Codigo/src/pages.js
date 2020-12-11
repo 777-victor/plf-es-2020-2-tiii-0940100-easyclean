@@ -224,11 +224,15 @@ async function pageServico(req, res) {
 async function saveContrato(req, res) {
     console.log("Entrou no saveContrato");
 
+    const filters = req.query
+
+   console.log(filters.pagamento);
     const dados = {
         disponibilidadeId: req.body.idServico,
         diaristaId: req.body.idDiarista,
         clienteId: req.body.idCliente,
-        valor: req.body.valorDiarista
+        valor: req.body.valorDiarista,
+        pagamento: req.body.pagamento
     }
 
     console.log(dados);
@@ -243,6 +247,9 @@ async function saveContrato(req, res) {
     } catch (error) {
         console.log(error)
     }
+
+
+
 
     return res.render("CadastrarServico.html")
 }
