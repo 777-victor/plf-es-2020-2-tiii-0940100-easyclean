@@ -10,21 +10,50 @@ function pageLanding(req, res) {
 }
 
 async function pageIndicadores(req, res) {
-    var query = 
+    const indicador1 = 
     `SELECT
-        (SUM(VALOR))/COUNT(ID) AS TICKET
+        (SUM(VALOR))/COUNT(ID) AS VALORMEDIO
     FROM DISPONIBILIDADE
+    `
+    const indicador2=
+    `
+    SELECT
+        COUNT(ID) AS DIARISTASMENSAIS
+    FROM DIARISTA
+    WHERE DATA_CADASTRO BETWEEN '2020-12-01 00:00:00' AND '2020-12-31 23:59:59'
+    `
+    const indicador3=
+    `
+    `
+    const indicador4=
+    `
+    SELECT
+        (SUM(VALOR))/COUNT(ID) AS TICKETMEDIO
+    FROM CONTRATO
+    
+    `
+    const indicador5=
+    `
+    SELECT
+        COUNT(CPF) AS TOTAL, 0+(SELECT COUNT(ID)FROM CONTRATO)AS ATIVAS
+    FROM DIARISTA
     `
     try {
         const db = await Database
-        const indica1 = await db.all(query)
+        const indica1 = await db.all(indicador1)
+        const indica2 = await db.all(indicador2)
+        const indica3 = await db.all(indicador2)
+        const indica4 = await db.all(indicador4)
+        const indica5 = await db.all(indicador5)
         console.log(indica1)
-        return res.render("indicadores.html")
-        
+        console.log(indica2)
+        //console.log(indica3)
+        console.log(indica4)
+        console.log(indica5)
+        return res.render("indicadores.html",{indica1})
     } catch (error) {
         console.log(error)
     }
-
 
 }
 
