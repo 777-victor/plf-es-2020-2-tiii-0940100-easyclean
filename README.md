@@ -3,7 +3,12 @@
 Plataforma simples e direta para encontrar um(a) profissional de limpeza ou se registrar como diarista.
 https://canvanizer.com/canvas/rAzomzn8FBg2P
 
-
+## Como rodar o código:
+* Abra o terminal;
+* Digite no terminal: cd codigo (para abrir a pasta do codigo)
+* Após: node src/database/db.js (para abrir o banco de dados)
+* Por fim: node src/database/db.js
+* Agora basta abrir a porta 5500(localhost:5500) de seu navegador!
 
 ## Integrantes
 
@@ -31,12 +36,7 @@ Assim que a primeira versão do sistema estiver disponível, deverá complementa
 * 0.0.1
     * Trabalhando na modelagem do processo de negócios.
     
-# Como rodar o código:
-* Abra o terminal;
-* Digite no terminal: cd codigo (para abrir a pasta do codigo)
-* Após: node src/database/db.js (para abrir o banco de dados)
-* Por fim: node src/database/db.js
-* Agora basta abrir a porta 5500(localhost:5500) de seu navegador!
+
 
 
 
