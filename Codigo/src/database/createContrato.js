@@ -18,17 +18,20 @@ module.exports = async function(db, { dados }) {
 
         const contrato_id = insertedContrato.lastID
 
-        const insertedPagamento = await db.run(`
-        INSERT INTO PAGAMENTO (
-            VALOR,
-            CONTRATO_ID,
-            FORMA_PAGAMENTO
-        ) VALUES (
-            "${dados.valor}",
-            "${contrato_id}",
-            "CARTÃO DE CRÉDITO"
-        );
-        `)
+        console.log("pagamento 1 para sim: " + dados.pagamento);
+            if(dados.pagamento == 1 ){
+            const insertedPagamento = await db.run(`
+            INSERT INTO PAGAMENTO (
+                VALOR,
+                CONTRATO_ID,
+                FORMA_PAGAMENTO
+            ) VALUES (
+                "${dados.valor}",
+                "${contrato_id}",
+                "CARTÃO DE CRÉDITO"
+            );
+            `)
+        }
 
     //INSERIR DADOS NA TABELA ENDERECO
 
