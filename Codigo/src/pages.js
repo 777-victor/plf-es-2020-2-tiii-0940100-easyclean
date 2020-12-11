@@ -10,34 +10,34 @@ function pageLanding(req, res) {
 }
 
 async function pageIndicadores(req, res) {
-    const indicador1 = 
-    `SELECT round
+    const indicador1 =
+        `SELECT round
         (SUM(VALOR)/COUNT(ID)) AS VALORMEDIO
     FROM DISPONIBILIDADE
     `
-    const indicador2=
-    `
+    const indicador2 =
+        `
     SELECT
         COUNT(ID) AS DIARISTASMENSAIS
     FROM DIARISTA
     WHERE DATA_CADASTRO BETWEEN '2020-12-01 00:00:00' AND '2020-12-31 23:59:59'
     `
-    const indicador3=
-    `
+    const indicador3 =
+        `
     SELECT 
         ( COUNT(PAGAMENTO.ID)/COUNT(CONTRATO.ID) )*100 AS TOTAL
         FROM PAGAMENTO, CONTRATO
     `
 
-    const indicador4=
-    `
+    const indicador4 =
+        `
     SELECT ROUND
         (SUM(VALOR)/COUNT(ID)) AS TICKETMEDIO
     FROM CONTRATO
     
     `
-    const indicador5=
-    `
+    const indicador5 =
+        `
     SELECT
         COUNT(CPF) AS TOTAL, 0+(SELECT COUNT(ID)FROM CONTRATO)AS ATIVAS
     FROM DIARISTA
@@ -54,7 +54,7 @@ async function pageIndicadores(req, res) {
         console.log(indica3)
         console.log(indica4)
         console.log(indica5)
-        return res.render("indicadores.html", { indica1 ,indica2 ,indica3, indica4,indica5 })
+        return res.render("indicadores.html", { indica1, indica2, indica3, indica4, indica5 })
     } catch (error) {
         console.log(error)
     }
@@ -226,7 +226,7 @@ async function saveContrato(req, res) {
 
     const filters = req.query
 
-   console.log(filters.pagamento);
+    console.log(filters.pagamento);
     const dados = {
         disponibilidadeId: req.body.idServico,
         diaristaId: req.body.idDiarista,
@@ -243,7 +243,7 @@ async function saveContrato(req, res) {
         const db = await Database
         await cadastraContrato(db, { dados })
             //return res.redirect("/feedCliente" + queryString)
-        return res.redirect("/feedCliente")
+        return res.render('feedDiarista.html', { filters })
     } catch (error) {
         console.log(error)
     }
@@ -251,7 +251,7 @@ async function saveContrato(req, res) {
 
 
 
-    return res.render("CadastrarServico.html")
+    return res.render('feedDiarista.html', { filters })
 }
 
 async function updateContrato(req, res) {
