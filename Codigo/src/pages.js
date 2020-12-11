@@ -11,8 +11,8 @@ function pageLanding(req, res) {
 
 async function pageIndicadores(req, res) {
     const indicador1 = 
-    `SELECT
-        (SUM(VALOR))/COUNT(ID) AS VALORMEDIO
+    `SELECT round
+        (SUM(VALOR)/COUNT(ID)) AS VALORMEDIO
     FROM DISPONIBILIDADE
     `
     const indicador2=
@@ -32,7 +32,7 @@ async function pageIndicadores(req, res) {
     const indicador4=
     `
     SELECT ROUND
-        (SUM(VALOR))/COUNT(ID) AS TICKETMEDIO
+        (SUM(VALOR)/COUNT(ID)) AS TICKETMEDIO
     FROM CONTRATO
     
     `
