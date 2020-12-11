@@ -50,7 +50,7 @@ async function pageIndicadores(req, res) {
         //console.log(indica3)
         console.log(indica4)
         console.log(indica5)
-        return res.render("indicadores.html",{indica1})
+        return res.render("indicadores.html", { indica1 })
     } catch (error) {
         console.log(error)
     }
