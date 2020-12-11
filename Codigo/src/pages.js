@@ -24,7 +24,11 @@ async function pageIndicadores(req, res) {
     `
     const indicador3=
     `
+    SELECT 
+        ( COUNT(PAGAMENTO.ID)/COUNT(CONTRATO.ID) ) AS TOTAL
+        FROM PAGAMENTO, CONTRATO
     `
+
     const indicador4=
     `
     SELECT
@@ -42,12 +46,12 @@ async function pageIndicadores(req, res) {
         const db = await Database
         const indica1 = await db.all(indicador1)
         const indica2 = await db.all(indicador2)
-        const indica3 = await db.all(indicador2)
+        const indica3 = await db.all(indicador3)
         const indica4 = await db.all(indicador4)
         const indica5 = await db.all(indicador5)
         console.log(indica1)
         console.log(indica2)
-        //console.log(indica3)
+        console.log(indica3)
         console.log(indica4)
         console.log(indica5)
         return res.render("indicadores.html", { indica1 ,indica2 ,indica3, indica4,indica5 })
