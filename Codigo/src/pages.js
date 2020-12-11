@@ -25,13 +25,13 @@ async function pageIndicadores(req, res) {
     const indicador3=
     `
     SELECT 
-        ( COUNT(PAGAMENTO.ID)/COUNT(CONTRATO.ID) ) AS TOTAL
+        ( COUNT(PAGAMENTO.ID)/COUNT(CONTRATO.ID) )*100 AS TOTAL
         FROM PAGAMENTO, CONTRATO
     `
 
     const indicador4=
     `
-    SELECT
+    SELECT ROUND
         (SUM(VALOR))/COUNT(ID) AS TICKETMEDIO
     FROM CONTRATO
     
