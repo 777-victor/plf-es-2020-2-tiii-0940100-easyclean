@@ -19,7 +19,7 @@ async function pageIndicadores(req, res) {
         const db = await Database
         const indica1 = await db.all(query)
         console.log(indica1)
-        return res.render("indicadores.html")
+        return res.render("indicadores.html", { indica1 })
         
     } catch (error) {
         console.log(error)
