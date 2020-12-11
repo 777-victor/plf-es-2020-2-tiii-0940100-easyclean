@@ -49,11 +49,6 @@ async function pageIndicadores(req, res) {
         const indica3 = await db.all(indicador3)
         const indica4 = await db.all(indicador4)
         const indica5 = await db.all(indicador5)
-        console.log(indica1)
-        console.log(indica2)
-        console.log(indica3)
-        console.log(indica4)
-        console.log(indica5)
         return res.render("indicadores.html", { indica1 ,indica2 ,indica3, indica4,indica5 })
     } catch (error) {
         console.log(error)
