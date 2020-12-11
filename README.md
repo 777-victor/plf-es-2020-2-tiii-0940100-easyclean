@@ -30,4 +30,13 @@ Assim que a primeira versão do sistema estiver disponível, deverá complementa
     * Implementação da funcionalidade X pertencente ao processo P.
 * 0.0.1
     * Trabalhando na modelagem do processo de negócios.
+    
+# Como rodar o código:
+* Abra o terminal;
+* Digite no terminal: cd codigo (para abrir a pasta do codigo)
+* Após: node src/database/db.js (para abrir o banco de dados)
+* Por fim: node src/database/db.js
+* Agora basta abrir a porta 5500(localhost:5500) de seu navegador!
+
+
 
