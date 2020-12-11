@@ -8,9 +8,20 @@ const { weekdays, convertHoursToMinutes, convertMinutesToHours } = require('./ut
 function pageLanding(req, res) {
     return res.render("index.html")
 }
-
-function pageIndicadores(req, res) {
+async function pageIndicadores(req, res) {
+    const query = `SELECT COUNT(ID) AS QUANTIDADE,SUM VALOR AS SOMA, SOMA DIV QUANTIDADE AS TICKET MEDIO FROM DISPONIBILIDADE
+    `
+    try {
+        const db = await Database
+        const indica1 = await db.all(query)
+        console.log(indica1)
+        return res.render("CadastrarServico.html", { id, weekdays })
+    } catch (error) {
+        console.log(error)
+    }
+    console.log(query)
     return res.render("indicadores.html")
+
 }
 
 async function pagefeedDiarista(req, res) {
