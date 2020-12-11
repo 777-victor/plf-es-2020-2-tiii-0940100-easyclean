@@ -28,28 +28,23 @@
 
 
             <div class="header-content">
-                <strong>Bem vindo(a) diarista! Aqui estão seus serviços:
+                <strong>Bem vindo(a) ! Aqui estão seus contratos:
                 </strong> <br>
-                <form action="/feedCliente" id="search-teachers">
+                <form action="/feedDiarista" id="search-teachers">
                     <div class="select-block">
-                        <label for="weekday">Dia da Semana</label>
-                        <select name="weekday" id="weekday">
-                            <option value=""disabled="" hidden>Selecione uma opção</option>
-                            {%for weekday in weekdays %}
-                            <option value="{{loop.index0}}" {{ "selected" if filters.weekday == loop.index0}}>
-                                {{weekday}}
-                            </option>
-                            {%endfor%}
-                        </select>
+                        <legend class="youAre">Você é:
+                            <select name="youAre" id="youAre" required value="{{filters.youAre}}">
+                            <option value="1">Diarista</option>
+                            <option value="2">Cliente</option>
+                            </select>
+                        </legend>
+
                     </div>
                     <div class="select-block">
-                        <label for="tempo_de">De</label>
-                        <input name="tempo_de" id="tempo_de" type="time" value="{{filters.tempo_de}}">
+                        <label for="id">Digite seu id</label>
+                        <input name="id" id="id" type="text" value="{{filters.id}}">
                     </div>
-                    <div class="select-block">
-                        <label for="tempo_ate">Ate</label>
-                        <input name="tempo_ate" id="tempo_ate" type="time" value="{{filters.tempo_ate}}">
-                    </div>
+
                     <button type="submit">Filtrar</button>
                 </form>
             </div>
@@ -57,71 +52,103 @@
 
         <main>
 
-            {% for Servico in Servicos %}
+            {% for Contrato in ContratoDiarista %}
 
             <article class="teacher-item">
                 <header>
-                    <img src="{{Servico.IMG_DIARISTA}}">
+                    <img src="{{Contrato.IMG_DIARISTA}}">
                     <div>
-                        <strong>{{Servico.NOME}}</strong>
+                        <strong>Diarista {{Contrato.NOME}} de id: {{Contrato.DIARISTA_ID}}</strong>
                     </div>
-                </header>
-                <p>{{Servico.DESCRICAO}}</p>
-                <p>DE {{Servico.TEMPO_DE}}</p>
-                <p>ATE {{Servico.TEMPO_ATE}}</p>
-                <footer>
-                    <p>Preço/Hora <strong>{{Servico["VALOR"]}}</strong></p>
-                    <a href="https://api.whatsapp.com/send?1=pt_BR&phone=55{{Servico.TELEFONE}}&text=Tenho interesse no seu servico {{Servico.name}}" class="button" target="_blank"><img src="images/icons/whatsapp.svg" alt="WhatsApp">Entrar em contato</button>
+                    <div>
+                        <strong>Cliente {{Contrato.NOMECLIENTE}} de id: {{Contrato.CLIENTE_ID}}</strong>
+                    </div>
+                    <img src="{{Contrato.IMG_CLIENTE}}">
 
-                    </a>
-                    <a data-toggle="modal" data-target="#exampleModal" data-whatever="@getNumsei"><img src="images/icons/whatsapp.svg" alt="WhatsApp">contratar</button>
+                </header>
+
+                <!--<p>DE {{Contrato.TEMPO_DE}}</p>
+                <p>ATE {{Contrato.TEMPO_ATE}}</p>!-->
+                <footer>
+                    <p>Nota Diarista: <strong>{{Contrato["NOTA_DIARISTA"]}}</strong></p>
+
+                    <p>Nota Cliente: <strong>{{Contrato["NOTA_CLIENTE"]}}</strong></p>
+                    <a onclick="AbreModal(`{{Contrato.NOME}}`,`{{Contrato.NOMECLIENTE}}`, `{{Contrato.ID}}`,
+                     `{{Contrato.CLIENTE_ID}}`, `{{Contrato.DIARISTA_ID}}`,`{{Contrato.DISPONIBILIDADE_ID}}`
+                     , `{{Contrato.VALOR}}`, `{{Contrato.NOTA_CLIENTE}}`, `{{Contrato.NOTA_DIARISTA}}`)" class="button"><img src="images/icons/whatsapp.svg" alt="WhatsApp">Dar Nota</button>
 
                     </a>
                 </footer>
-
-
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-                            </div>
+                {% endfor %}
+            </article>
+            <div id="myModal" class="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Informações do contrato</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                 </button>
+                        </div>
+                        <form action="/update-contrato" id="update-contrato" method="POST">
                             <div class="modal-body">
 
-                                <form>
-                                    <div class="form-group">
-                                        <label for="recipient-name" class="col-form-label">Diarista:</label>
+                                <div class="form-group" hidden>
+                                    <label for="idCliente" class="col-form-label">Cliente Id: </label>
+                                    <input type="text" class="form-control" name="idCliente" id="idCliente" readonly>
+                                </div>
 
-                                        <input type="text" class="form-control" id="recipient-name" value="{{Servico.NOME}}" disabled>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="message-text" class="col-form-label">Valor:</label>
+                                <div class="form-group">
+                                    <label for="nomeCliente" class="col-form-label">Cliente: </label>
+                                    <input type="text" class="form-control" name="nomeCliente" id="nomeCliente" readonly>
+                                </div>
 
-                                        <input type="text" class="form-control" id="message-text" value="{{Servico.VALOR}}" disabled>
-                                    </div>
+                                <div class="form-group">
+                                    <label for="nomeDiarista" class="col-form-label">Diarista:</label>
+                                    <input type="text" class="form-control" name="nomeDiarista" id="nomeDiarista" readonly>
+                                </div>
 
-                                    <div class="input-block">
-                                        <label for="idCliente">Cliente de id: </label>
-                                        <input name="idCliente" id="idCliente" readonly>
-                                    </div>
+                                <div class="form-group" hidden>
+                                    <label for="idDiarista" class="col-form-label">Diarista Id:</label>
+                                    <input type="text" class="form-control" name="idDiarista" id="idDiarista" readonly>
+                                </div>
 
-                                </form>
+                                <div class="form-group">
+                                    <label for="idContrato" class="col-form-label">Contrato de id:</label>
+                                    <input type="text" class="form-control" name="idContrato" id="idContrato" readonly>
+                                </div>
+
+                                <div class="form-group" hidden>
+                                    <label for="idServico" class="col-form-label">Servico de id:</label>
+                                    <input type="text" class="form-control" name="idServico" id="idServico" readonly>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="valorServico" class="col-form-label">Valor: </label>
+                                    <input type="text" class="form-control" name="valorServico" id="valorServico">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="notaDiarista" class="col-form-label">Nota da diarista: </label>
+                                    <input type="text" class="form-control" name="notaDiarista" id="notaDiarista">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="notaCliente" class="col-form-label">Nota do cliente:</label>
+                                    <input type="text" class="form-control" name="notaCliente" id="notaCliente">
+                                </div>
                             </div>
+
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                <button type="button" class="btn btn-primary">Confirmar Contrato</button>
+
+                                <button type="submit" class="btn btn-success">Atualizar Contrato</button>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
-            </article>
+            </div>
 
-            {% endfor %}
         </main>
-
 
     </div>
 
@@ -130,9 +157,33 @@
 
         var nome = "{{Cliente[1]}} ";
 
-        console.log("Id Cliente " + id + "Nome: " + nome);
+        //console.log("Id Cliente " + id + "Nome: " + nome);
 
-        document.getElementById("idCliente").value = nome + "   id:" + id;
+        //document.getElementById("idCliente").value = nome + "   id:" + id;
+
+        function AbreModal(nome, nomeCliente, contratoId, clienteId, diaristaId, disponibilidadeId, valor, notaCliente, notaDiarista) {
+
+            console.log("TESTE");
+            $("#nomeDiarista").val(nome);
+            $("#nomeCliente").val(nomeCliente);
+            $("#idServico").val(disponibilidadeId);
+            //$("#valorDiarista").val(valor);
+            $("#idContrato").val(contratoId);
+            $("#idDiarista").val(diaristaId);
+            $("#idCliente").val(clienteId);
+            console.log(valor);
+            $("#valorServico").val(valor);
+            $("#notaDiarista").val(notaDiarista);
+            $("#notaCliente").val(notaCliente);
+
+            //console.log(nome + valor + " " + id);
+            $("#myModal").modal({
+                show: true
+            });
+
+
+            //$("#idCliente").value(id)
+        }
     </script>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

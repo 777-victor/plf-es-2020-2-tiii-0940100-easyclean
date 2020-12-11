@@ -1,3 +1,4 @@
+const { filter } = require('async')
 const db = require('./database/db')
 const Database = require('./database/db')
 
@@ -7,16 +8,81 @@ const { weekdays, convertHoursToMinutes, convertMinutesToHours } = require('./ut
 function pageLanding(req, res) {
     return res.render("index.html")
 }
-function pageIndicadores(req, res){
+
+function pageIndicadores(req, res) {
     return res.render("indicadores.html")
 }
-function pagefeedDiarista(req, res) {
-    return res.render("feedDiarista.html")
+
+async function pagefeedDiarista(req, res) {
+
+    const filters = req.query
+
+    console.log("Cliente 2, Diarista 1: " + filters.youAre);
+    console.log("ID: " + filters.id);
+
+    //filtro diarista
+    if (filters.youAre == 1) {
+        const query = `
+    SELECT DISPONIBILIDADE.*, DIARISTA.*, HORARIOS.*, CONTRATO.*, CLIENTE.NOME AS NOMECLIENTE, CLIENTE.IMG_CLIENTE
+    FROM DIARISTA
+    JOIN CONTRATO ON (CONTRATO.DIARISTA_ID = DIARISTA.ID)
+    JOIN DISPONIBILIDADE ON (DISPONIBILIDADE.DIARISTA_ID = DIARISTA.ID)
+    JOIN HORARIOS ON (HORARIOS.DISPONIBILIDADE_ID = DISPONIBILIDADE.ID)
+    JOIN CLIENTE ON (CLIENTE.ID = CONTRATO.CLIENTE_ID)
+    WHERE DIARISTA.ID = ${filters.id}
+    `
+
+        try {
+            const db = await Database
+
+            const ContratoDiarista = await db.all(query)
+
+            console.log(ContratoDiarista)
+
+            return res.render('feedDiarista.html', { ContratoDiarista, filters })
+                //return res.render('feedCliente.html')
+        } catch (error) {
+            console.log(error)
+        }
+
+    } else if (filters.youAre == 2) {
+
+        console.log("Cliente 2, Diarista 1: " + filters.youAre);
+        console.log("ID: " + filters.id);
+
+        //filtro diarista
+
+        const query = `
+        SELECT DISPONIBILIDADE.*, DIARISTA.*, HORARIOS.*, CONTRATO.*, CLIENTE.NOME AS NOMECLIENTE, CLIENTE.IMG_CLIENTE
+        FROM DIARISTA
+        JOIN CONTRATO ON (CONTRATO.DIARISTA_ID = DIARISTA.ID)
+        JOIN DISPONIBILIDADE ON (DISPONIBILIDADE.DIARISTA_ID = DIARISTA.ID)
+        JOIN HORARIOS ON (HORARIOS.DISPONIBILIDADE_ID = DISPONIBILIDADE.ID)
+        JOIN CLIENTE ON (CLIENTE.ID = CONTRATO.CLIENTE_ID)
+        WHERE CLIENTE.ID = ${filters.id}
+        `
+
+        try {
+            const db = await Database
+
+            const ContratoDiarista = await db.all(query)
+
+            console.log(ContratoDiarista)
+
+            return res.render('feedDiarista.html', { ContratoDiarista, filters })
+                //return res.render('feedCliente.html')
+        } catch (error) {
+            console.log(error)
+        }
+
+        return res.render('feedDiarista.html', { ContratoDiarista, filters })
+    }
+
+    return res.render('feedDiarista.html');
+
 }
 async function pagefeedCliente(req, res) {
     const filters = req.query
-
-
 
     if (!filters.weekday || (!filters.tempo_de || !filters.tempo_ate)) {
         //return res.render("feedCliente.html", { filters, weekdays })
@@ -133,6 +199,36 @@ async function saveContrato(req, res) {
     return res.render("CadastrarServico.html")
 }
 
+async function updateContrato(req, res) {
+    console.log("Entrou no updateContrato");
+    const filters = req.query
+
+    const dados = {
+        contratoId: req.body.idContrato,
+        disponibilidadeId: req.body.idServico,
+        diaristaId: req.body.idDiarista,
+        clienteId: req.body.idCliente,
+        valor: req.body.valorServico,
+        notaCliente: req.body.notaCliente,
+        notaDiarista: req.body.notaDiarista
+    }
+    console.log("DADOS: " + dados.valor);
+
+    const cadastraContrato = require('./database/updateContrato')
+
+    try {
+        const db = await Database
+        await cadastraContrato(db, { dados })
+            //return res.redirect("/feedCliente" + queryString)
+        return res.render('feedDiarista.html', { filters })
+    } catch (error) {
+        console.log(error)
+    }
+
+    //return res.render("CadastrarServico.html")
+
+}
+
 async function saveServivo(req, res) {
     console.log("Entrou no saveServico")
 
@@ -233,5 +329,6 @@ module.exports = {
     pageLogin,
     saveServivo,
     saveContrato,
-    saveCadastro
+    saveCadastro,
+    updateContrato
 }
